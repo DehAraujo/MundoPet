@@ -1,4 +1,27 @@
 CREATE DATABASE te;
 USE te;
 
-CREATE TABLE Cliente();
+CREATE TABLE Cliente(
+  id_cliente INT ,
+  nome_cliente VARCHAR not null  notnull unsigned auto increment
+  endereco_cliente VARCHAR  not null
+  tel_cliente INT  not null
+  data_cadastro_cliente DATE not null
+);
+
+CREATE TABLE Pet(
+  id_pet INT notnull unsigned auto increment;
+  nome_pet VARCHAR not null;
+  especie_pet VARCHAR not null;
+  raca_pet VARCHAR not null;
+  idade_pet INT not null;
+  sexo_pet VARCHAR not null;
+  id_cliente VARCHAR not null;
+);
+
+CREATE TABLE Produto(
+  id_produto INT notnull unsigned auto increment;
+  nome_produto VARCHAR not null;
+  categoria_produto VARCHAR not null;
+  preco_produto 
+);
