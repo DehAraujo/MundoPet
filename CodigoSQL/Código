@@ -66,4 +66,7 @@ CREATE TABLE Fornecedor(
 CREATE TABLE Funcionario(
   id_funcionario INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   nome_funcionario VARCHAR(255) NOT NULL
+  cargo_funcionario VARCHAR(255) NOT NULL
+  telefone_funcionario INT NOT NULL
+  data_contratacao_funcionario DATE NOT NULL
 );
