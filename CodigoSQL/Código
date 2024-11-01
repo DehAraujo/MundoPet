@@ -72,3 +72,15 @@ CREATE TABLE Agendamento(
   data_agendamento DATE not null;
   status_agendamento VARCHAR not null;
 );
+
+CREATE TABLE Fornecedor(
+  id_fornecedor INT notnull unsigned auto increment;
+  nome_fornecedor VARCHAR not null;
+  telefone_fornecedor INT not null;
+  endereco_fornecedor VARCHAR not null;
+);
+
+CREATE TABLE Funcionario(
+  id_funcionario notnull unsigned auto increment;
+  nome_funcionario ;
+);
