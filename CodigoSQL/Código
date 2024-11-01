@@ -1,3 +1,4 @@
+
 CREATE DATABASE te;
 USE te;
 
@@ -65,8 +66,62 @@ CREATE TABLE Fornecedor(
 
 CREATE TABLE Funcionario(
   id_funcionario INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  nome_funcionario VARCHAR(255) NOT NULL
-  cargo_funcionario VARCHAR(255) NOT NULL
-  telefone_funcionario INT NOT NULL
+  nome_funcionario VARCHAR(255) NOT NULL,
+  cargo_funcionario VARCHAR(255) NOT NULL,
+  telefone_funcionario INT NOT NULL,
   data_contratacao_funcionario DATE NOT NULL
 );
+
+INSERT INTO Cliente(nome_cliente, endereco_cliente, tel_cliente, data_cadastro_cliente) VALUES
+('Beatriz Almeida', 'Rua das Flores 123 São Paulo / SP', '91234-5679', '2023-01-10'),
+('Carlos Eduardo Lima', 'Avenida Paulista 456 São Paulo / SP', '91234-5680', '2023-02-15'),
+('Daniela Rocha', 'Rua do Carmo 789 São Paulo / SP', '91234-5681', '2023-03-20'),
+('Eduardo Silva', 'Avenida Brasil 101 São Paulo / SP', '91234-5682', '2023-04-25'),
+('Fernanda Oliveira', 'Rua XV de Novembro 202 São Paulo / SP', '91234-5683', '2023-05-30'),
+('Gabriel Souza', 'Rua das Palmeiras 303 São Paulo / SP', '91234-5684', '2023-06-05'),
+('Helena Ferreira', 'Avenida Sete de Setembro 404 São Paulo / SP', '91234-5685', '2023-07-12'),
+('Igor Mendes', 'Rua da Praia 505 São Paulo / SP', '91234-5686', '2023-08-17'),
+('Júlia Santos', 'Rua Augusta 606 São Paulo / SP', '91234-5687', '2023-09-22'),
+('Kevin Costa', 'Avenida Goiás 707 São Paulo / SP', '91234-5688', '2023-10-27'),
+('Laura Pereira', 'Rua da Consolação 808 São Paulo / SP', '91234-5689', '2023-11-02'),
+('Marcelo Andrade', 'Rua do Comércio 909 São Paulo / SP', '91234-5690', '2023-12-08'),
+('Natália Castro', 'Avenida Paraná 1010 São Paulo / SP', '91234-5691', '2024-01-13'),
+('Otávio Ramos', 'Rua das Hortênsias 1111 São Paulo / SP', '91234-5692', '2024-02-18'),
+('Paula Lima', 'Rua 24 de Maio 1212 São Paulo / SP', '91234-5693', '2024-03-24'),
+('Quirino Xavier', 'Rua Coronel Xavier de Toledo 1313 São Paulo / SP', '91234-5694', '2024-04-29'),
+('Rafael Azevedo', 'Avenida João Pessoa 1414 São Paulo / SP', '91234-5695', '2024-05-05'),
+('Sílvia Cardoso', 'Rua Sete de Abril 1515 São Paulo / SP', '91234-5696', '2024-06-10'),
+('Tiago Almeida', 'Avenida Sete de Setembro 1616 São Paulo / SP', '91234-5697', '2024-07-15'),
+('Ursula Vieira', 'Rua Primeiro de Março 1717 São Paulo / SP', '91234-5698', '2024-08-20'),
+('Vinícius Martins', 'Avenida Amazonas 1818 São Paulo / SP', '91234-5699', '2024-09-25'),
+('Wagner Barbosa', 'Rua Floriano Peixoto 1919 São Paulo / SP', '91234-5700', '2024-10-30'),
+('Xavier Almeida', 'Rua Sete de Abril 2020 São Paulo / SP', '91234-5701', '2024-11-04'),
+('Yara Pires', 'Avenida Beira Mar 2121 São Paulo / SP', '91234-5702', '2024-12-09'),
+('Zuleika Fonseca', 'Rua Antônio Prado 2222 São Paulo / SP', '91234-5703', '2023-01-14'),
+('Arthur Mendes', 'Avenida dos Andradas 2323 São Paulo / SP', '91234-5704', '2023-02-19'),
+('Bianca Nogueira', 'Rua Primeiro de Maio 2424 São Paulo / SP', '91234-5705', '2023-03-25'),
+('César Ferreira', 'Rua do Príncipe 2525 São Paulo / SP', '91234-5706', '2023-04-30'),
+('Denise Oliveira', 'Avenida Rio Branco 2626 São Paulo / SP', '91234-5707', '2023-05-06'),
+('Estela Lima', 'Rua General Osório 2727 São Paulo / SP', '91234-5708', '2023-06-11'),
+('Fábio Carvalho', 'Rua Antônio Prado 2828 São Paulo / SP', '91234-5709', '2023-07-16'),
+('Giovana Ferreira', 'Avenida Rio Grande do Sul 2929 São Paulo / SP', '91234-5710', '2023-08-21'),
+('Henrique Silva', 'Rua dos Andradas 3030 São Paulo / SP', '91234-5711', '2023-09-26'),
+('Isabela Costa', 'Rua das Palmeiras 3131 São Paulo / SP', '91234-5712', '2023-10-31'),
+('José Pereira', 'Avenida Sete de Abril 3232 São Paulo / SP', '91234-5713', '2023-11-05'),
+('Karla Almeida', 'Rua das Hortênsias 3333 São Paulo / SP', '91234-5714', '2023-12-10'),
+('Leonardo Sousa', 'Rua Primeiro de Março 3434 São Paulo / SP', '91234-5715', '2024-01-15'),
+('Maria Fernanda', 'Avenida Amazonas 3535 São Paulo / SP', '91234-5716', '2024-02-20'),
+('Nicolas Carvalho', 'Rua Antônio Prado 3636 São Paulo / SP', '91234-5717', '2024-03-27'),
+('Olívia Rocha', 'Avenida Paraná 3737 São Paulo / SP', '91234-5718', '2024-04-01'),
+('Pedro Henrique', 'Rua Coronel Xavier de Toledo 3838 São Paulo / SP', '91234-5719', '2024-05-06'),
+('Rita de Cássia', 'Rua Floriano Peixoto 3939 São Paulo / SP', '91234-5720', '2024-06-11'),
+('Sérgio Araújo', 'Avenida João Pessoa 4040 São Paulo / SP', '91234-5721', '2024-07-16'),
+('Talita Campos', 'Rua Primeiro de Maio 4141 São Paulo / SP', '91234-5722', '2024-08-21'),
+('Ulisses Monteiro', 'Avenida Brasil 4242 São Paulo / SP', '91234-5723', '2024-09-26'),
+('Vanessa Guimarães', 'Rua das Hortênsias 4343 São Paulo / SP', '91234-5724', '2024-10-31'),
+('Wesley Santos', 'Avenida Goiás 4444 São Paulo / SP', '91234-5725', '2024-11-05'),
+('Xênia Lopes', 'Rua das Flores 4545 São Paulo / SP', '91234-5726', '2024-12-10'),
+('Yuri Melo', 'Rua Augusta 4646 São Paulo / SP', '91234-5727', '2024-01-15'),
+('Zoraide Souza', 'Rua da Consolação 4747 São Paulo / SP', '91234-5728', '2024-02-20');
+
+SELECT * FROM Cliente
