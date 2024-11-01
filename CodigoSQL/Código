@@ -23,7 +23,7 @@ CREATE TABLE Produto(
   id_produto INT notnull unsigned auto increment;
   nome_produto VARCHAR not null;
   categoria_produto VARCHAR not null;
-  preco_produto FLOAT not null;
+  preco_produto DOUBLE not null;
   quantidade_produto INT not null;
   fornecedor_produto VARCHAR;
 );
@@ -60,7 +60,7 @@ CREATE TABLE Produto(
 CREATE TABLE Servico(
   id_servico INT notnull unsigned auto increment;
   nome_servico VARCHAR not null;
-  preco_servico FLOAT not null;
+  preco_servico DOUBLE not null;
   duracao_servico TIME not null;
 );
 
