@@ -1,3 +1,350 @@
+CREATE DATABASE pr2;
+USE pr2;
+CREATE TABLE Cliente (
+  id_cliente INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  nome_cliente VARCHAR(255) NOT NULL,
+  endereco_cliente VARCHAR(255) NOT NULL,
+  tel_cliente VARCHAR(15) NOT NULL,
+  data_cadastro_cliente DATE NOT NULL
+);
+CREATE TABLE Pet (
+  id_pet INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  nome_pet VARCHAR(255) NOT NULL,
+  especie_pet VARCHAR(255) NOT NULL,
+  raca_pet VARCHAR(255) NOT NULL,
+  idade_pet INT UNSIGNED NOT NULL,
+  sexo_pet VARCHAR(10) NOT NULL,
+  id_cliente INT UNSIGNED NOT NULL,
+  FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente)
+);
+CREATE TABLE Produto (
+  id_produto INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  nome_produto VARCHAR(255) NOT NULL,
+  categoria_produto VARCHAR(255) NOT NULL,
+  preco_produto DOUBLE NOT NULL,
+  quantidade_produto INT UNSIGNED NOT NULL,
+  id_fornecedor INT UNSIGNED,
+  FOREIGN KEY (id_fornecedor) REFERENCES Fornecedor(id_fornecedor)
+);
+CREATE TABLE Venda (
+  id_venda INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  id_cliente INT UNSIGNED,
+  data_venda DATE NOT NULL,
+  total_venda DOUBLE NOT NULL,
+  FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente)
+);
+
+CREATE TABLE Servico (
+  id_servico INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  nome_servico VARCHAR(255) NOT NULL,
+  preco_servico DOUBLE NOT NULL,
+  duracao_servico TIME NOT NULL
+);
+CREATE TABLE Agendamento (
+  id_agendamento INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  id_cliente INT UNSIGNED NOT NULL,
+  id_pet INT UNSIGNED NOT NULL,
+  id_servico INT UNSIGNED NOT NULL,
+  data_agendamento DATE NOT NULL,
+  status_agendamento VARCHAR(255) NOT NULL,
+  FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente),
+  FOREIGN KEY (id_pet) REFERENCES Pet(id_pet),
+  FOREIGN KEY (id_servico) REFERENCES Servico(id_servico)
+);
+CREATE TABLE Fornecedor (
+  id_fornecedor INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  nome_fornecedor VARCHAR(255) NOT NULL,
+  telefone_fornecedor VARCHAR(15) NOT NULL,
+  endereco_fornecedor VARCHAR(255) NOT NULL
+);
+CREATE TABLE Funcionario (
+  id_funcionario INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  nome_funcionario VARCHAR(255) NOT NULL,
+  cargo_funcionario VARCHAR(255) NOT NULL,
+  telefone_funcionario VARCHAR(15) NOT NULL,
+  data_contratacao_funcionario DATE NOT NULL
+);
+INSERT INTO Cliente(nome_cliente, endereco_cliente, tel_cliente, data_cadastro_cliente) VALUES
+('Beatriz Almeida', 'Rua das Flores 123 São Paulo / SP', '91234-5679', '2023-01-10'),
+('Carlos Eduardo Lima', 'Avenida Paulista 456 São Paulo / SP', '91234-5680', '2023-02-15'),
+('Daniela Rocha', 'Rua do Carmo 789 São Paulo / SP', '91234-5681', '2023-03-20'),
+('Eduardo Silva', 'Avenida Brasil 101 São Paulo / SP', '91234-5682', '2023-04-25'),
+('Fernanda Oliveira', 'Rua XV de Novembro 202 São Paulo / SP', '91234-5683', '2023-05-30'),
+('Gabriel Souza', 'Rua das Palmeiras 303 São Paulo / SP', '91234-5684', '2023-06-05'),
+('Helena Ferreira', 'Avenida Sete de Setembro 404 São Paulo / SP', '91234-5685', '2023-07-12'),
+('Igor Mendes', 'Rua da Praia 505 São Paulo / SP', '91234-5686', '2023-08-17'),
+('Júlia Santos', 'Rua Augusta 606 São Paulo / SP', '91234-5687', '2023-09-22'),
+('Kevin Costa', 'Avenida Goiás 707 São Paulo / SP', '91234-5688', '2023-10-27'),
+('Laura Pereira', 'Rua da Consolação 808 São Paulo / SP', '91234-5689', '2023-11-02'),
+('Marcelo Andrade', 'Rua do Comércio 909 São Paulo / SP', '91234-5690', '2023-12-08'),
+('Natália Castro', 'Avenida Paraná 1010 São Paulo / SP', '91234-5691', '2024-01-13'),
+('Otávio Ramos', 'Rua das Hortênsias 1111 São Paulo / SP', '91234-5692', '2024-02-18'),
+('Paula Lima', 'Rua 24 de Maio 1212 São Paulo / SP', '91234-5693', '2024-03-24'),
+('Quirino Xavier', 'Rua Coronel Xavier de Toledo 1313 São Paulo / SP', '91234-5694', '2024-04-29'),
+('Rafael Azevedo', 'Avenida João Pessoa 1414 São Paulo / SP', '91234-5695', '2024-05-05'),
+('Sílvia Cardoso', 'Rua Sete de Abril 1515 São Paulo / SP', '91234-5696', '2024-06-10'),
+('Tiago Almeida', 'Avenida Sete de Setembro 1616 São Paulo / SP', '91234-5697', '2024-07-15'),
+('Ursula Vieira', 'Rua Primeiro de Março 1717 São Paulo / SP', '91234-5698', '2024-08-20'),
+('Vinícius Martins', 'Avenida Amazonas 1818 São Paulo / SP', '91234-5699', '2024-09-25'),
+('Wagner Barbosa', 'Rua Floriano Peixoto 1919 São Paulo / SP', '91234-5700', '2024-10-30'),
+('Xavier Almeida', 'Rua Sete de Abril 2020 São Paulo / SP', '91234-5701', '2024-11-04'),
+('Yara Pires', 'Avenida Beira Mar 2121 São Paulo / SP', '91234-5702', '2024-12-09'),
+('Zuleika Fonseca', 'Rua Antônio Prado 2222 São Paulo / SP', '91234-5703', '2023-01-14'),
+('Arthur Mendes', 'Avenida dos Andradas 2323 São Paulo / SP', '91234-5704', '2023-02-19'),
+('Bianca Nogueira', 'Rua Primeiro de Maio 2424 São Paulo / SP', '91234-5705', '2023-03-25'),
+('César Ferreira', 'Rua do Príncipe 2525 São Paulo / SP', '91234-5706', '2023-04-30'),
+('Denise Oliveira', 'Avenida Rio Branco 2626 São Paulo / SP', '91234-5707', '2023-05-06'),
+('Estela Lima', 'Rua General Osório 2727 São Paulo / SP', '91234-5708', '2023-06-11'),
+('Fábio Carvalho', 'Rua Antônio Prado 2828 São Paulo / SP', '91234-5709', '2023-07-16'),
+('Giovana Ferreira', 'Avenida Rio Grande do Sul 2929 São Paulo / SP', '91234-5710', '2023-08-21'),
+('Henrique Silva', 'Rua dos Andradas 3030 São Paulo / SP', '91234-5711', '2023-09-26'),
+('Isabela Costa', 'Rua das Palmeiras 3131 São Paulo / SP', '91234-5712', '2023-10-31'),
+('José Pereira', 'Avenida Sete de Abril 3232 São Paulo / SP', '91234-5713', '2023-11-05'),
+('Karla Almeida', 'Rua das Hortênsias 3333 São Paulo / SP', '91234-5714', '2023-12-10'),
+('Leonardo Sousa', 'Rua Primeiro de Março 3434 São Paulo / SP', '91234-5715', '2024-01-15'),
+('Maria Fernanda', 'Avenida Amazonas 3535 São Paulo / SP', '91234-5716', '2024-02-20'),
+('Nicolas Carvalho', 'Rua Antônio Prado 3636 São Paulo / SP', '91234-5717', '2024-03-27'),
+('Olívia Rocha', 'Avenida Paraná 3737 São Paulo / SP', '91234-5718', '2024-04-01'),
+('Pedro Henrique', 'Rua Coronel Xavier de Toledo 3838 São Paulo / SP', '91234-5719', '2024-05-06'),
+('Rita de Cássia', 'Rua Floriano Peixoto 3939 São Paulo / SP', '91234-5720', '2024-06-11'),
+('Sérgio Araújo', 'Avenida João Pessoa 4040 São Paulo / SP', '91234-5721', '2024-07-16'),
+('Talita Campos', 'Rua Primeiro de Maio 4141 São Paulo / SP', '91234-5722', '2024-08-21'),
+('Ulisses Monteiro', 'Avenida Brasil 4242 São Paulo / SP', '91234-5723', '2024-09-26'),
+('Vanessa Guimarães', 'Rua das Hortênsias 4343 São Paulo / SP', '91234-5724', '2024-10-31'),
+('Wesley Santos', 'Avenida Goiás 4444 São Paulo / SP', '91234-5725', '2024-11-05'),
+('Xênia Lopes', 'Rua das Flores 4545 São Paulo / SP', '91234-5726', '2024-12-10'),
+('Yuri Melo', 'Rua Augusta 4646 São Paulo / SP', '91234-5727', '2024-01-15'),
+('Zoraide Souza', 'Rua da Consolação 4747 São Paulo / SP', '91234-5728', '2024-02-20');
+
+INSERT INTO Pet(nome_pet, especie_pet, raca_pet, idade_pet, sexo_pet, id_cliente) VALUES
+('Pandora', 'canina', 'Labrador', 5, 'fêmea', 1),
+('Rex', 'canina', 'Pitbull', 3, 'macho', 1),
+('Luna', 'felina', 'Siamês', 2, 'fêmea', 2),
+('Max', 'canina', 'Beagle', 4, 'macho', 3),
+('Bella', 'canina', 'Poodle', 6, 'fêmea', 4),
+('Mimi', 'felina', 'Persa', 1, 'fêmea', 5),
+('Charlie', 'canina', 'Golden Retriever', 7, 'macho', 6),
+('Simba', 'felina', 'Maine Coon', 3, 'macho', 7),
+('Daisy', 'canina', 'Bulldog', 2, 'fêmea', 6),
+('Oscar', 'felina', 'Bengal', 4, 'macho', 6),
+('Molly', 'canina', 'Shih Tzu', 5, 'fêmea', 10),
+('Shadow', 'felina', 'Ragdoll', 6, 'macho', 11),
+('Buddy', 'canina', 'Chihuahua', 1, 'macho', 12),
+('Tiger', 'felina', 'Sphynx', 7, 'macho', 13),
+('Rosie', 'canina', 'Dachshund', 8, 'fêmea', 14),
+('Whiskers', 'felina', 'Abyssinian', 2, 'fêmea', 15),
+('Bailey', 'canina', 'Cocker Spaniel', 3, 'macho', 16),
+('Nala', 'felina', 'Scottish Fold', 4, 'fêmea', 17),
+('Jack', 'canina', 'Boxer', 5, 'macho', 18),
+('Coco', 'felina', 'Burmese', 1, 'fêmea', 19),
+('Sophie', 'canina', 'French Bulldog', 6, 'fêmea', 20),
+('Oliver', 'felina', 'Oriental', 5, 'macho', 21),
+('Rocky', 'canina', 'Doberman', 2, 'macho', 22),
+('Milo', 'felina', 'Russian Blue', 6, 'macho', 23),
+('Zoe', 'canina', 'Pug', 4, 'fêmea', 24),
+('Tigger', 'felina', 'Manx', 3, 'macho', 25),
+('Duke', 'canina', 'Great Dane', 7, 'macho', 26),
+('Chloe', 'felina', 'Birman', 2, 'fêmea', 27),
+('Ruby', 'canina', 'Basset Hound', 1, 'fêmea', 28),
+('Leo', 'felina', 'Chartreux', 4, 'macho', 29),
+('Buster', 'canina', 'Rottweiler', 5, 'macho', 30),
+('Loki', 'felina', 'Devon Rex', 5, 'macho', 31),
+('Sadie', 'canina', 'Samoyed', 6, 'fêmea', 32),
+('Smokey', 'felina', 'Scottish Fold', 1, 'macho', 33),
+('Toby', 'canina', 'Terrier', 3, 'macho', 34),
+('Missy', 'felina', 'Turkish Angora', 2, 'fêmea', 35),
+('Maggie', 'canina', 'Maltese', 8, 'fêmea', 36),
+('Ginger', 'felina', 'Bengal', 3, 'fêmea', 37),
+('Murphy', 'canina', 'Collie', 2, 'macho', 39),
+('Pepper', 'felina', 'Ocicat', 4, 'fêmea', 39),
+('Cody', 'canina', 'Pomeranian', 5, 'macho', 39),
+('Oreo', 'felina', 'Snowshoe', 5, 'macho', 41),
+('Penny', 'canina', 'Dalmatian', 1, 'fêmea', 42),
+('Lily', 'felina', 'British Shorthair', 6, 'fêmea', 43),
+('Gus', 'canina', 'Shiba Inu', 6, 'macho', 44),
+('Kitty', 'felina', 'Himalayan', 1, 'fêmea', 45),
+('Riley', 'canina', 'Border Collie', 3, 'fêmea', 46),
+('Sininho', 'felina', 'Ragamuffin', 2, 'fêmea', 47),
+('Tucker', 'canina', 'Corgi', 4, 'macho', 48),
+('Boots', 'felina', 'Norwegian Forest', 3, 'macho', 49),
+('Lucy', 'canina', 'German Shepherd', 7, 'fêmea', 50),
+('Felix', 'felina', 'Siberian', 4, 'macho', 8),
+('Bear', 'canina', 'Saint Bernard', 2, 'macho', 2),
+('Princess', 'felina', 'Burmilla', 5, 'fêmea', 3),
+('Gracie', 'canina', 'Akita', 1, 'fêmea', 4),
+('Pumpkin', 'felina', 'Balinese', 6, 'macho', 5),
+('Scout', 'canina', 'Whippet', 3, 'macho', 6),
+('Mittens', 'felina', 'American Shorthair', 1, 'fêmea', 7),
+('Zoey', 'canina', 'Husky', 5, 'fêmea', 8),
+('Salem', 'felina', 'Munchkin', 2, 'macho', 5),
+('Rocco', 'canina', 'Bernese Mountain Dog', 4, 'macho', 2),
+('Sasha', 'felina', 'Turkish Van', 3, 'fêmea', 7),
+('Maya', 'canina', 'Papillon', 6, 'fêmea', 11),
+('Fluffy', 'felina', 'Ragamuffin', 4, 'macho', 11),
+('Rusty', 'canina', 'Basenji', 2, 'macho', 4),
+('Nina', 'felina', 'Bombay', 5, 'fêmea', 5),
+('Lola', 'canina', 'Lhasa Apso', 1, 'fêmea', 11),
+('Cleo', 'felina', 'Korate', 6, 'fêmea', 10),
+('Baxter', 'canina', 'Weimaraner', 3, 'macho', 9),
+('Whiskey', 'felina', 'LaPerm', 1, 'macho', 9);
+
+INSERT INTO Servico(nome_servico, preco_servico, duracao_servico) VALUES
+('banho', 75, '01:00:00'),
+('corte de pelo', 50, '00:45:00'),
+('higienização de ouvidos', 30, '00:20:00'),
+('corte de unhas', 25, '00:15:00'),
+('limpeza de dentes', 45, '00:30:00'),
+('toalete completo', 90, '01:30:00'),
+('tosa higiênica', 60, '00:45:00'),
+('desembaraço de pelo', 40, '00:30:00'),
+('banho e tosa', 100, '01:30:00'),
+('banho e secagem', 80, '01:00:00'),
+('clipping de pelos', 70, '00:50:00'),
+('banho seco', 50, '00:40:00'),
+('higienização de pele', 60, '00:40:00'),
+('douramento de pelagem', 90, '01:00:00'),
+('remédio para pulgas e carrapatos', 30, '00:20:00'),
+('serviço de hotel para cães', 200, '24:00:00'),
+('serviço de hotel para gatos', 150, '24:00:00'),
+('banho e corte para gatos', 90, '01:30:00'),
+('adestramento básico', 250, '02:00:00'),
+('adestramento avançado', 400, '03:00:00'),
+('exame de saúde para pets', 50, '00:40:00'),
+('microchipagem', 120, '00:30:00'),
+('tratamento antipulgas', 70, '00:30:00'),
+('corte de cabelo para cães', 55, '00:40:00'),
+('vacinação', 90, '00:30:00'),
+('consulta veterinária', 150, '00:40:00'),
+('teste de alergias', 120, '00:30:00'),
+('castração', 350, '02:00:00'),
+('higienização de dentes', 40, '00:30:00'),
+('aula de natação para cães', 100, '01:00:00'),
+('aula de natação para gatos', 100, '01:00:00');
+
+INSERT INTO Agendamento(id_cliente, id_pet, id_servico, data_agendamento, status_agendamento) VALUES
+(1, 1, 1, '2024-10-11', 'concluido'),
+(1, 2, 1, '2024-10-11', 'concluido'),
+(2, 3, 2, '2024-10-12', 'concluido'),
+(3, 4, 2, '2024-10-13', 'pendente'),
+(4, 5, 5, '2024-10-14', 'em andamento'),
+(5, 6, 7, '2024-10-15', 'concluido'),
+(7, 7, 4, '2024-10-16', 'pendente'),
+(7, 8, 4, '2024-10-17', 'em andamento'),
+(6, 9, 5, '2024-10-18', 'concluido'),
+(6, 10, 5, '2024-10-19', 'pendente'),
+(28, 29, 3, '2024-10-20', 'concluido'),
+(29, 30, 1, '2024-10-21', 'em andamento'),
+(30, 31, 7, '2024-10-22', 'pendente'),
+(1, 1, 7, '2024-10-23', 'concluido'),
+(1, 2, 8, '2024-10-24', 'em andamento'),
+(3, 4, 8, '2024-10-25', 'pendente'),
+(13, 14, 9, '2024-10-26', 'concluido'),
+(9, 70, 9, '2024-10-27', 'em andamento'),
+(9, 70, 20, '2024-10-28', 'pendente');
+
+INSERT INTO Produto(nome_produto, categoria_produto, preco_produto, quantidade_produto, fornecedor_produto) VALUES
+('Shampoo para Cães Pele Sensível', 'higiene', 35.00, 50, 'PetClean'),
+('Shampoo Antipulgas e Carrapatos', 'higiene', 40.00, 30, 'PetClean'),
+('Shampoo Medicamentoso', 'higiene', 50.00, 20, 'PetClean'),
+('Shampoo para Pelos Claros', 'higiene', 38.00, 40, 'PetClean'),
+('Shampoo Hidratante', 'higiene', 45.00, 35, 'PetClean'),
+('Shampoo Desodorizante', 'higiene', 37.00, 60, 'PetClean'),
+('Shampoo Seco', 'higiene', 42.00, 25, 'PetClean'),
+('Condicionador para Cães', 'higiene', 30.00, 55, 'HigiePet Suprimentos'),
+('Sabonete Antibacteriano para Cães', 'higiene', 25.00, 50, 'HigiePet Suprimentos'),
+('Sabonete Hidratante para Cães', 'higiene', 27.00, 45, 'HigiePet Suprimentos'),
+('Escova para Pelos Curtos', 'higiene', 20.00, 70, 'HigiePet Suprimentos'),
+('Escova para Pelos Longos', 'higiene', 22.00, 65, 'HigiePet Suprimentos'),
+('Pente para Desembaraçar', 'higiene', 18.00, 80, 'HigiePet Suprimentos'),
+('Cortador de Unhas para Cães', 'higiene', 25.00, 60, 'HigiePet Suprimentos'),
+('Creme Dental para Cães', 'higiene', 15.00, 100, 'HigiePet Suprimentos'),
+('Escova de Dentes para Cães', 'higiene', 12.00, 90, 'HigiePet Suprimentos'),
+('Limpador de Ouvidos para Cães', 'higiene', 28.00, 50, 'HigiePet Suprimentos'),
+('Lenços Umedecidos para Cães', 'higiene', 18.00, 70, 'HigiePet Suprimentos'),
+('Perfume para Cães', 'higiene', 35.00, 40, 'HigiePet Suprimentos'),
+('Tapete Higiênico para Cães', 'higiene', 45.00, 30, 'HigiePet Suprimentos'),
+('Desinfetante para Ambientes', 'higiene', 30.00, 80, 'HigiePet Suprimentos'),
+('Removedor de Manchas e Odores', 'higiene', 40.00, 50, 'HigiePet Suprimentos'),
+('Shampoo para Gatos', 'higiene', 33.00, 60, 'PetClean'),
+('Shampoo Seco para Gatos', 'higiene', 38.00, 40, 'PetClean'),
+('Condicionador para Gatos', 'higiene', 32.00, 55, 'PetClean'),
+('Sabonete para Gatos', 'higiene', 28.00, 50, 'PetClean'),
+('Escova para Pelos de Gatos', 'higiene', 22.00, 65, 'PetClean'),
+('Pente para Gatos', 'higiene', 20.00, 70, 'PetClean'),
+('Cortador de Unhas para Gatos', 'higiene', 26.00, 60, 'PetClean'),
+('Creme Dental para Gatos', 'higiene', 17.00, 100, 'PetClean'),
+('Escova de Dentes para Gatos', 'higiene', 14.00, 90, 'PetClean'),
+('Limpador de Ouvidos para Gatos', 'higiene', 30.00, 50, 'PetClean'),
+('Lenços Umedecidos para Gatos', 'higiene', 20.00, 70, 'PetClean'),
+('Perfume para Gatos', 'higiene', 37.00, 40, 'PetClean'),
+('Desinfetante para Gatos', 'higiene', 32.00, 80, 'PetClean'),
+('Removedor de Manchas para Gatos', 'higiene', 42.00, 50, 'PetClean'),
+('Comedouro para Cães', 'alimentação', 20.00, 100, 'BestPet Higiene'),
+('Bebedouro para Cães', 'alimentação', 25.00, 90, 'BestPet Higiene'),
+('Comedouro para Gatos', 'alimentação', 18.00, 110, 'BestPet Higiene'),
+('Bebedouro para Gatos', 'alimentação', 22.00, 100, 'BestPet Higiene'),
+('Ração Seca para Cães Adultos', 'alimentação', 120.00, 40, 'BestPet Higiene'),
+('Ração Seca para Cães Filhotes', 'alimentação', 130.00, 35, 'BestPet Higiene'),
+('Ração Úmida para Cães Adultos', 'alimentação', 100.00, 50, 'BestPet Higiene'),
+('Ração Úmida para Cães Filhotes', 'alimentação', 110.00, 45, 'BestPet Higiene'),
+('Ração Seca para Gatos Adultos', 'alimentação', 115.00, 50, 'BestPet Higiene'),
+('Ração Seca para Gatos Filhotes', 'alimentação', 125.00, 45, 'BestPet Higiene'),
+('Ração Úmida para Gatos Adultos', 'alimentação', 95.00, 55, 'BestPet Higiene'),
+('Ração Úmida para Gatos Filhotes', 'alimentação', 105.00, 50, 'BestPet Higiene'),
+('Petiscos para Cães', 'alimentação', 40.00, 70, 'BestPet Higiene'),
+('Petiscos para Gatos', 'alimentação', 35.00, 75, 'BestPet Higiene'),
+('Osso de Menta para Cães', 'brinquedos', 15.00, 80, 'AmigoPet Produtos'),
+('Bola de Borracha para Cães', 'brinquedos', 12.00, 90, 'AmigoPet Produtos'),
+('Pelúcia para Cães', 'brinquedos', 25.00, 70, 'AmigoPet Produtos'),
+('Corda de Puxar para Cães', 'brinquedos', 18.00, 85, 'AmigoPet Produtos'),
+('Arranhador para Gatos', 'brinquedos', 45.00, 50, 'AmigoPet Produtos'),
+('Bolinha com Guizo para Gatos', 'brinquedos', 10.00, 100, 'AmigoPet Produtos'),
+('Varinha com Penas para Gatos', 'brinquedos', 15.00, 90, 'AmigoPet Produtos'),
+('Túnel para Gatos', 'brinquedos', 30.00, 60, 'AmigoPet Produtos'),
+('Cama para Cães Pequenos', 'acessórios', 70.00, 40, 'CãoLimpo Distribuidora'),
+('Cama para Cães Médios', 'acessórios', 90.00, 35, 'CãoLimpo Distribuidora'),
+('Cama para Cães Grandes', 'acessórios', 110.00, 30, 'CãoLimpo Distribuidora'),
+('Cobertor para Cães', 'acessórios', 50.00, 45, 'CãoLimpo Distribuidora'),
+('Casinha para Cães Pequenos', 'acessórios', 150.00, 20, 'CãoLimpo Distribuidora'),
+('Casinha para Cães Médios', 'acessórios', 180.00, 15, 'CãoLimpo Distribuidora'),
+('Casinha para Cães Grandes', 'acessórios', 200.00, 10, 'CãoLimpo Distribuidora'),
+('Coleira para Cães Pequenos', 'acessórios', 25.00, 60, 'CãoLimpo Distribuidora'),
+('Coleira para Cães Médios', 'acessórios', 30.00, 55, 'CãoLimpo Distribuidora'),
+('Coleira para Cães Grandes', 'acessórios', 35.00, 50, 'CãoLimpo Distribuidora'),
+('Guia para Cães Pequenos', 'acessórios', 20.00, 70, 'CãoLimpo Distribuidora'),
+('Guia para Cães Médios', 'acessórios', 25.00, 65, 'CãoLimpo Distribuidora'),
+('Guia para Cães Grandes', 'acessórios', 30.00, 60, 'CãoLimpo Distribuidora'),
+('Peitoral para Cães Pequenos', 'acessórios', 35.00, 50, 'CãoLimpo Distribuidora'),
+('Peitoral para Cães Médios', 'acessórios', 40.00, 45, 'CãoLimpo Distribuidora'),
+('Peitoral para Cães Grandes', 'acessórios', 45.00, 40, 'CãoLimpo Distribuidora'),
+('Caminha para Gatos', 'acessórios', 60.00, 40, 'CãoLimpo Distribuidora'),
+('Cobertor para Gatos', 'acessórios', 40.00, 45, 'CãoLimpo Distribuidora'),
+('Arranhador para Gatos', 'acessórios', 70.00, 30, 'CãoLimpo Distribuidora'),
+('Coleira para Gatos', 'acessórios', 15.00, 70, 'CãoLimpo Distribuidora'),
+('Guia para Gatos', 'acessórios', 18.00, 65, 'CãoLimpo Distribuidora'),
+('Caixa de Transporte para Cães Pequenos', 'acessórios', 120.00, 20, 'CãoLimpo Distribuidora'),
+('Caixa de Transporte para Cães Médios', 'acessórios', 140.00, 15, 'CãoLimpo Distribuidora'),
+('Caixa de Transporte para Cães Grandes', 'acessórios', 160.00, 10, 'CãoLimpo Distribuidora'),
+('Caixa de Transporte para Gatos', 'acessórios', 110.00, 20, 'CãoLimpo Distribuidora'),
+('Shampoo Antipulgas para Cães', 'higiene', 45.00, 30, 'Patas Limpos Distribuidora'),
+('Shampoo Branqueador para Cães', 'higiene', 40.00, 35, 'Patas Limpos Distribuidora'),
+('Shampoo Natural para Cães', 'higiene', 50.00, 20, 'Patas Limpos Distribuidora'),
+('Condicionador Hidratante para Cães', 'higiene', 35.00, 40, 'Patas Limpos Distribuidora'),
+('Sabonete Neem para Cães', 'higiene', 28.00, 50, 'Patas Limpos Distribuidora'),
+('Escova de Silicone para Cães', 'higiene', 20.00, 60, 'Patas Limpos Distribuidora'),
+('Pente Anti-pulgas para Cães', 'higiene', 22.00, 55, 'Patas Limpos Distribuidora'),
+('Cortador de Unhas com LED', 'higiene', 30.00, 50, 'Patas Limpos Distribuidora'),
+('Creme Dental Enzimático para Cães', 'higiene', 18.00, 100, 'Patas Limpos Distribuidora'),
+('Escova Dental com Dedal para Cães', 'higiene', 15.00, 90, 'Patas Limpos Distribuidora'),
+('Limpador de Ouvidos com Aloe Vera para Cães', 'higiene', 32.00, 50, 'Patas Limpos Distribuidora'),
+('Lenços Umedecidos Antibacterianos para Cães', 'higiene', 20.00, 70, 'Patas Limpos Distribuidora'),
+('Perfume Citrus para Cães', 'higiene', 35.00, 40, 'Patas Limpos Distribuidora'),
+('Tapete Higiênico Super Absorvente', 'higiene', 50.00, 30, 'Patas Limpos Distribuidora'),
+('Desinfetante Herbal para Ambientes', 'higiene', 32.00, 80, 'Patas Limpos Distribuidora'),
+('Removedor de Manchas de Urina para Cães', 'higiene', 42.00, 50, 'Patas Limpos Distribuidora'),
+('Shampoo para Cães Filhotes', 'higiene', 35.00, 50, 'PetClean');
+
+INSERT INTO Venda(id_cliente, data_venda, total_venda) VALUES
 (1, '2023-01-10', 43),
 (1, '2023-01-10', 92),
 (1, '2023-01-10', 17),
@@ -146,3 +493,63 @@
 (48, '2024-12-10', 16),
 (48, '2024-12-11', 56),
 (48, '2024-12-12', 12),
+
+
+
+select * from Produto;
+#Visualisando agendamento
+SELECT c.id_cliente, c.nome_cliente, p.id_pet, p.nome_pet, a.id_servico, a.data_agendamento, a.status_agendamento
+from Agendamento a
+JOIN Pet p ON a.id_pet = p.id_pet
+JOIN Cliente c ON p.id_cliente = c.id_cliente;
+
+#1- Quais clientes têm pets cadastrados no sistema?
+SELECT c.nome_cliente, p.nome_pet 
+	FROM Cliente c
+    JOIN Pet p ON c.id_cliente = p.id_pet;
+  
+    #Inseriri clientes sem pet
+
+#2- Quais são os nomes dos pets de um cliente específico?
+SELECT *
+	FROM Pet p
+	JOIN Cliente c ON p.id_cliente = c.id_cliente
+    WHERE c.nome_cliente = 'Laura Pereira';
+    
+#3- Qual cliente possui mais pets?
+SELECT Cliente.nome_cliente,
+		COUNT(Pet.id_pet) AS numero_de_pets 
+        FROM Cliente 
+        JOIN Pet ON Cliente.id_cliente = Pet.id_cliente 
+        GROUP BY Cliente.nome_cliente 
+        ORDER BY numero_de_pets DESC LIMIT 1;
+
+#4- Quais serviços foram agendados para um pet específico?
+SELECT p.nome_pet, s.nome_servico, a.data_agendamento
+	FROM Agendamento a 
+    JOIN Pet p ON a.id_pet = p.id_pet 
+    JOIN Servico s ON a.id_servico = s.id_servico 
+    WHERE p.nome_pet = 'Whiskey';
+
+#5- Quais são os dados de contato dos clientes que fizeram agendamentos em uma data específica?
+SELECT c.nome_cliente, c.endereco_cliente, c.tel_cliente
+	FROM Agendamento a
+	JOIN Cliente c ON a.id_cliente = c.id_cliente
+	WHERE a.data_agendamento = '2024-10-16';
+    
+# 6- Quais produtos foram comprados por um cliente específico?
+SELECT c.nome_cliente, p.produto_nome
+	FROM Cliente c
+    JOIN Produto p ON c.id_cliente = p.id_produto;
+    
+select * from Pet;
+select * from Cliente
+
+
+
+
+
+
+
+
+
