@@ -548,6 +548,27 @@ select * from Cliente
 
 
 
+#Quais clientes têm pets cadastrados no sistema?
+#Quais são os nomes dos pets de um cliente específico?
+#Qual cliente possui mais pets?
+#Quais serviços foram agendados para um pet específico?
+#Quais são os dados de contato dos clientes que fizeram agendamentos em uma data específica?
+#Quais produtos foram comprados por um cliente específico?
+#Qual é o valor total das vendas feitas para cada cliente?
+#Quais fornecedores fornecem produtos que foram comprados por clientes?
+#Quantos produtos diferentes um fornecedor específico fornece?
+#Quais serviços foram mais agendados no último mês?
+#Qual é a média de idade dos pets de um cliente específico?
+#Quais funcionários realizaram mais agendamentos de serviços?
+#Quais clientes têm agendamentos pendentes?
+#Quais são os detalhes dos produtos comprados em uma venda específica?
+#Quais clientes realizaram mais compras de produtos?
+#Quais serviços um pet específico já utilizou?
+#Quais são os detalhes de um agendamento específico (cliente, pet, serviço, data, status)?
+#Qual cliente gerou o maior faturamento em vendas de produtos?
+#Quais são os pets de um cliente que têm mais de 5 anos?
+#Quais produtos têm estoque abaixo de uma determinada quantidade e precisam ser reabastecidos?
+
 
 
 
