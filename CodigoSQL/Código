@@ -1,5 +1,5 @@
-CREATE DATABASE 0p2;
-USE 0p2;
+CREATE DATABASE bd2;
+USE bd2;
 CREATE TABLE Cliente (
   id_cliente INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   nome_cliente VARCHAR(255) NOT NULL,
@@ -448,18 +448,6 @@ INSERT INTO Agendamento(id_cliente, id_pet, id_servico, data_agendamento, status
 (9, 70, 20, '2024-10-28', 'pendente');
 
 
-
-SELECT DISTINCT id_produto
-
-F
-FROM Venda
-WHERE id_produto NOT IN (SELECT id_produto FROM Produto);
-
-
-
-
-select * from Funcionario;
-
 select * from Produto;
 select * from Cliente;
 select * from Servico;
@@ -470,26 +458,11 @@ select * from Venda;
 select * from Agendamento;
 
 
-
-
-SELECT fornecedor_produto, COUNT(id_produto) AS total_produtos
-FROM Produto
-GROUP BY fornecedor_produto;
-
-
-
-
-SELECT c.id_cliente, c.nome_cliente, p.id_pet, p.nome_pet, a.id_servico, a.data_agendamento, a.status_agendamento
-from Agendamento a
-JOIN Pet p ON a.id_pet = p.id_pet
-JOIN Cliente c ON p.id_cliente = c.id_cliente;
-
 #1- Quais clientes têm pets cadastrados no sistema?
-SELECT c.nome_cliente, p.nome_pet 
+SELECT c.id_cliente, c.nome_cliente, p.nome_pet 
 	FROM Cliente c
     JOIN Pet p ON c.id_cliente = p.id_pet;
-  
-    #Inseriri clientes sem pet
+  #Inserir clientes sem pet
 
 #2- Quais são os nomes dos pets de um cliente específico?
 SELECT *
@@ -519,40 +492,73 @@ SELECT c.nome_cliente, c.endereco_cliente, c.tel_cliente
 	WHERE a.data_agendamento = '2024-10-16';
     
 # 6- Quais produtos foram comprados por um cliente específico?
-SELECT c.nome_cliente, p.produto_nome
+SELECT c.nome_cliente, p.nome_produto
 	FROM Cliente c
-    JOIN Produto p ON c.id_cliente = p.id_produto;
+	JOIN Venda v ON c.id_cliente = v.id_cliente
+	JOIN Produto p ON v.id_produto = p.id_produto
+	WHERE c.nome_cliente = 'Helena Ferreira';
+
+#7- Quais clientes têm felinos cadastrados no sistema?
+SELECT c.nome_cliente, p.nome_pet, p.especie_pet, p.raca_pet
+	FROM Cliente c
+    JOIN Pet p ON c.id_cliente = p.id_cliente
+    WHERE especie_pet = 'felina';
+
+#8- Quantos produtos diferentes um fornecedor específico fornece
+SELECT 
+	p.id_produto, 
+	p.nome_produto,
+	(SELECT COUNT(DISTINCT p2.id_produto)
+	FROM Produto p2
+	JOIN Fornecedor f2 ON p2.id_fornecedor = f2.id_fornecedor
+	WHERE f2.nome_fornecedor = 'Patas Limpas ModaFashion') AS num_produtos_diferentes
+	FROM Produto p
+	JOIN Fornecedor f ON p.id_fornecedor = f.id_fornecedor
+	WHERE f.nome_fornecedor = 'Patas Limpas ModaFashion';
     
-select * from Pet;
-select * from funcionario;
-SELECT id_funcionario, nome_funcionario, cargo_funcionario, telefone_funcionario, data_contratacao_funcionario
-FROM Funcionario
-WHERE cargo_funcionario = 'Banhista';
+#9- Quais produtos um cliente comprou em um intervalo de datas?
+SELECT c.nome_cliente, p.nome_produto, v.data_venda
+FROM Cliente c
+	JOIN Venda v ON c.id_cliente = v.id_cliente
+	JOIN Produto p ON v.id_produto = p.id_produto
+	WHERE v.data_venda BETWEEN '2024-01-01' AND '2024-03-30'
+	ORDER BY v.data_venda;
 
+#10- Quais pets têm mais de um serviço agendado?
+SELECT 
+	p.nome_pet, COUNT(a.id_agendamento) AS numero_de_agendamentos
+	FROM Pet p
+	JOIN Agendamento a ON p.id_pet = a.id_pet
+	GROUP BY p.nome_pet
+	HAVING numero_de_agendamentos > 1;
+    
+#11- Quais serviços são oferecidos por um funcionário específico?
+SELECT s.nome_servico, s.preco_servico, f.nome_funcionario
+	FROM Servico s
+	JOIN Funcionario f ON s.id_funcionario = f.id_funcionario
+	WHERE f.nome_funcionario = 'Carlos Souza';
+#12- Quais pets pertencem a um cliente com um endereço específico?
+SELECT c.nome_cliente, p.nome_pet, p.especie_pet, p.raca_pet
+FROM Pet p
+JOIN Cliente c ON p.id_cliente = c.id_cliente
+WHERE c.endereco_cliente LIKE '%Rua das Flores 123%';
 
-#Quais clientes têm pets cadastrados no sistema?
-#Quais são os nomes dos pets de um cliente específico?
-#Qual cliente possui mais pets?
-#Quais serviços foram agendados para um pet específico?
-#Quais são os dados de contato dos clientes que fizeram agendamentos em uma data específica?
-#Quais produtos foram comprados por um cliente específico?
-#Qual é o valor total das vendas feitas para cada cliente?
-#Quais fornecedores fornecem produtos que foram comprados por clientes?
-#Quantos produtos diferentes um fornecedor específico fornece?
-#Quais serviços foram mais agendados no último mês?
-#Qual é a média de idade dos pets de um cliente específico?
-#Quais funcionários realizaram mais agendamentos de serviços?
-#Quais clientes têm agendamentos pendentes?
-#Quais são os detalhes dos produtos comprados em uma venda específica?
-#Quais clientes realizaram mais compras de produtos?
-#Quais serviços um pet específico já utilizou?
-#Quais são os detalhes de um agendamento específico (cliente, pet, serviço, data, status)?
-#Qual cliente gerou o maior faturamento em vendas de produtos?
-#Quais são os pets de um cliente que têm mais de 5 anos?
-#Quais produtos têm estoque abaixo de uma determinada quantidade e precisam ser reabastecidos?
+ #13- Quais clientes fizeram compras de um produto específico?
+SELECT c.nome_cliente, p.nome_produto
+FROM Cliente c
+JOIN Venda v ON c.id_cliente = v.id_cliente
+JOIN Produto p ON v.id_produto = p.id_produto
+WHERE p.nome_produto = 'Suéter para Gatos';
 
+#14- Quais clientes compraram produtos de mais de um fornecedor?
+	SELECT c.nome_cliente
+	FROM Cliente c
+	JOIN Venda v ON c.id_cliente = v.id_cliente
+	JOIN Produto p ON v.id_produto = p.id_produto
+	GROUP BY c.id_cliente
+	HAVING COUNT(DISTINCT p.id_fornecedor) > 1;
 
-
+#11- Quais são os detalhes de um agendamento específico (cliente, pet, serviço, data, status)?
 
 
 
