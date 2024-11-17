@@ -1,5 +1,5 @@
-CREATE DATABASE 0Apet;
-USE 0Apet;
+CREATE DATABASE mundoPet;
+USE MundoPet;
 
 CREATE TABLE Cliente(
     id_cliente INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -129,7 +129,27 @@ INSERT INTO Cliente(nome_cliente, endereco_cliente, tel_cliente, data_cadastro_c
 ('Cláudia Santos', 'Av. Itararé, 1310, São Paulo - SP', '98821-4321', '2023-05-01'),
 ('Roberta Costa', 'Rua do Padeiro, 1155, São Paulo - SP', '98123-4321', '2023-04-30'),
 ('Paula Almeida', 'Rua dos Três Irmãos, 1105, São Paulo - SP', '97983-4321', '2023-03-29'),
-('Simone Lima', 'Rua da Paz, 1165, São Paulo - SP', '99123-4321', '2023-02-28');
+('Simone Lima', 'Rua da Paz, 1165, São Paulo - SP', '99123-4321', '2023-02-28'),
+('Carlos Mendes', 'Rua das Palmeiras, 2200, São Paulo - SP', '98765-4321', '2024-11-17'),
+('Patrícia Silva', 'Rua dos Pescadores, 2301, São Paulo - SP', '91234-5678', '2024-11-17'),
+('Ricardo Costa', 'Av. Paulista, 1500, São Paulo - SP', '99876-5432', '2024-11-17'),
+('Juliana Souza', 'Rua do Comércio, 1800, São Paulo - SP', '98432-5671', '2024-11-16'),
+('Thiago Santos', 'Rua dos Lírios, 1100, São Paulo - SP', '99555-4321', '2024-11-15'),
+('Marcelo Almeida', 'Av. Rio de Janeiro, 2500, São Paulo - SP', '98123-4321', '2024-11-14'),
+('Luciana Rocha', 'Rua dos Cedros, 1201, São Paulo - SP', '99321-4321', '2024-11-13'),
+('Fábio Costa', 'Av. Ipiranga, 1450, São Paulo - SP', '99123-4321', '2024-11-12'),
+('Viviane Pereira', 'Rua das Acácias, 1103, São Paulo - SP', '98765-4321', '2024-11-11'),
+('Renato Costa', 'Rua da Liberdade, 1012, São Paulo - SP', '98765-4320', '2024-11-10'),
+('João Costa', 'Rua do Bosque, 1303, São Paulo - SP', '98821-4321', '2024-11-09'),
+('Sandra Almeida', 'Rua dos Andes, 1404, São Paulo - SP', '98123-4321', '2024-11-08'),
+('Fernando Rocha', 'Av. Santos Dumont, 1305, São Paulo - SP', '99123-4321', '2024-11-07'),
+('Cláudia Pereira', 'Rua do Mar, 1506, São Paulo - SP', '99321-4321', '2024-11-06'),
+('Aline Souza', 'Av. Santa Catarina, 1607, São Paulo - SP', '98876-5432', '2024-11-05'),
+('Gustavo Ferreira', 'Rua dos Carvalhos, 1708, São Paulo - SP', '99555-4321', '2024-11-04'),
+('Sérgio Lima', 'Rua das Estrelas, 1809, São Paulo - SP', '98432-5671', '2024-11-03'),
+('Eliane Silva', 'Rua da Serra, 1900, São Paulo - SP', '98765-4321', '2024-11-02'),
+('Marcelo Rocha', 'Av. da República, 2001, São Paulo - SP', '91234-5678', '2024-11-01'),
+('Eduardo Martins', 'Rua da Paz, 2102, São Paulo - SP', '99877-6543', '2024-10-31');
 
 INSERT INTO EspeciePet(nome_especie, nome_comum, alimentacao) VALUES
 ('Canis lupus familiaris', 'Cachorro', 'Ração, carne, vegetais'),
@@ -780,5 +800,7 @@ SELECT s.nome_servico, s.preco_servico, f.nome_funcionario
 #19- Quais serviços foram agendados por mais de um cliente?
 
 #20- Quais petshops venderam o produto "Ração Seca para Cães Adultos"?
+ 
+ #21- Quais clientes não tem Pets cadastrados?
  
 
