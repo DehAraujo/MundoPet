@@ -1,300 +1,527 @@
-CREATE DATABASE bd2;
-USE bd2;
-CREATE TABLE Cliente (
-  id_cliente INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  nome_cliente VARCHAR(255) NOT NULL,
-  endereco_cliente VARCHAR(255) NOT NULL,
-  tel_cliente VARCHAR(15) NOT NULL,
-  data_cadastro_cliente DATE NOT NULL
+CREATE DATABASE 0Apet;
+USE 0Apet;
+
+CREATE TABLE Cliente(
+    id_cliente INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nome_cliente VARCHAR(255) NOT NULL,
+    endereco_cliente VARCHAR(255) NOT NULL,
+    tel_cliente VARCHAR(15) NOT NULL,
+    data_cadastro_cliente DATE NOT NULL
 );
-CREATE TABLE Pet (
-  id_pet INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  nome_pet VARCHAR(255) NOT NULL,
-  especie_pet VARCHAR(255) NOT NULL,
-  raca_pet VARCHAR(255) NOT NULL,
-  idade_pet INT UNSIGNED NOT NULL,
-  sexo_pet VARCHAR(10) NOT NULL,
-  id_cliente INT UNSIGNED NOT NULL,
-  FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente)
+CREATE TABLE EspeciePet (
+    id_especie INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nome_especie VARCHAR(100) NOT NULL,
+    nome_comum VARCHAR(255) NOT NULL,
+    alimentacao VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE Fornecedor (
-  id_fornecedor INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  nome_fornecedor VARCHAR(255) NOT NULL,
-  telefone_fornecedor VARCHAR(15) NOT NULL,
-  endereco_fornecedor VARCHAR(255) NOT NULL
+CREATE TABLE RacaPet (
+    id_raca INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    id_especie INT UNSIGNED NOT NULL,
+    raca VARCHAR(50) NOT NULL,
+    tamanho VARCHAR(20) NOT NULL,
+    temperamento VARCHAR(100) NOT NULL,
+    expectativa_vida VARCHAR(20) NOT NULL,
+    FOREIGN KEY (id_especie) REFERENCES EspeciePet(id_especie)
 );
+
+CREATE TABLE Pet (
+    id_pet INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    id_cliente INT UNSIGNED NOT NULL,
+    id_especie INT UNSIGNED NOT NULL,
+    id_raca INT UNSIGNED NOT NULL,
+    nome_pet VARCHAR(255) NOT NULL,
+    idade_pet INT UNSIGNED NOT NULL,
+    sexo_pet VARCHAR(10) NOT NULL,
+    FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente),
+    FOREIGN KEY (id_especie) REFERENCES EspeciePet(id_especie),
+    FOREIGN KEY (id_raca) REFERENCES RacaPet(id_raca)
+);
+
+
 
 CREATE TABLE Produto (
-  id_produto INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  nome_produto VARCHAR(255) NOT NULL,
-  categoria_produto VARCHAR(255) NOT NULL,
-  preco_produto DOUBLE NOT NULL,
-  quantidade_produto INT UNSIGNED NOT NULL,
-  id_fornecedor INT UNSIGNED NOT NULL,
-  FOREIGN KEY (id_fornecedor) REFERENCES Fornecedor(id_fornecedor)
+    id_produto INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nome_produto VARCHAR(255) NOT NULL,
+    categoria_produto VARCHAR(255) NOT NULL,
+    preco_produto DOUBLE NOT NULL,
+    quantidade_produto INT UNSIGNED NOT NULL
 );
+
 CREATE TABLE Venda (
-  id_venda INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  id_cliente INT UNSIGNED NOT NULL,
-  id_produto INT UNSIGNED NOT NULL,
-  data_venda DATE NOT NULL,
-  FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente),
-  FOREIGN KEY (id_produto) REFERENCES Produto(id_produto)
+    id_venda INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    id_cliente INT UNSIGNED NOT NULL,
+    id_produto INT UNSIGNED NOT NULL,
+    data_venda DATE NOT NULL,
+    FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente),
+    FOREIGN KEY (id_produto) REFERENCES Produto(id_produto)
 );
+
 CREATE TABLE Funcionario (
-  id_funcionario INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  nome_funcionario VARCHAR(255) NOT NULL,
-  cargo_funcionario VARCHAR(255) NOT NULL,
-  telefone_funcionario VARCHAR(15) NOT NULL,
-  data_contratacao_funcionario DATE NOT NULL
+    id_funcionario INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nome_funcionario VARCHAR(255) NOT NULL,
+    cargo_funcionario VARCHAR(255) NOT NULL,
+    telefone_funcionario VARCHAR(15) NOT NULL,
+    data_contratacao_funcionario DATE NOT NULL
 );
+
 CREATE TABLE Servico (
-  id_servico INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  id_funcionario INT UNSIGNED NOT NULL,
-  nome_servico VARCHAR(255) NOT NULL,
-  preco_servico DOUBLE NOT NULL,
-  duracao_servico TIME NOT NULL,
-  FOREIGN KEY (id_funcionario) REFERENCES Funcionario(id_funcionario)
+    id_servico INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    id_funcionario INT UNSIGNED NOT NULL,
+    nome_servico VARCHAR(255) NOT NULL,
+    preco_servico DOUBLE NOT NULL,
+    duracao_servico TIME NOT NULL,
+    FOREIGN KEY (id_funcionario) REFERENCES Funcionario(id_funcionario)
 );
+
 CREATE TABLE Agendamento (
-  id_agendamento INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  id_cliente INT UNSIGNED NOT NULL,
-  id_pet INT UNSIGNED NOT NULL,
-  id_servico INT UNSIGNED NOT NULL,
-  data_agendamento DATE NOT NULL,
-  status_agendamento VARCHAR(255) NOT NULL,
-  FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente),
-  FOREIGN KEY (id_pet) REFERENCES Pet(id_pet),
-  FOREIGN KEY (id_servico) REFERENCES Servico(id_servico)
+    id_agendamento INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    id_cliente INT UNSIGNED NOT NULL,
+    id_pet INT UNSIGNED NOT NULL,
+    id_servico INT UNSIGNED NOT NULL,
+    data_agendamento DATE NOT NULL,
+    status_agendamento VARCHAR(255) NOT NULL,
+    FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente),
+    FOREIGN KEY (id_pet) REFERENCES Pet(id_pet),
+    FOREIGN KEY (id_servico) REFERENCES Servico(id_servico)
 );
+
+
+
 
 INSERT INTO Cliente(nome_cliente, endereco_cliente, tel_cliente, data_cadastro_cliente) VALUES
-('Beatriz Almeida', 'Rua das Flores 123 São Paulo / SP', '91234-5679', '2023-01-10'),
-('Carlos Eduardo Lima', 'Avenida Paulista 456 São Paulo / SP', '91234-5680', '2023-02-15'),
-('Daniela Rocha', 'Rua do Carmo 789 São Paulo / SP', '91234-5681', '2023-03-20'),
-('Eduardo Silva', 'Avenida Brasil 101 São Paulo / SP', '91234-5682', '2023-04-25'),
-('Fernanda Oliveira', 'Rua XV de Novembro 202 São Paulo / SP', '91234-5683', '2023-05-30'),
-('Gabriel Souza', 'Rua das Palmeiras 303 São Paulo / SP', '91234-5684', '2023-06-05'),
-('Helena Ferreira', 'Avenida Sete de Setembro 404 São Paulo / SP', '91234-5685', '2023-07-12'),
-('Igor Mendes', 'Rua da Praia 505 São Paulo / SP', '91234-5686', '2023-08-17'),
-('Júlia Santos', 'Rua Augusta 606 São Paulo / SP', '91234-5687', '2023-09-22'),
-('Kevin Costa', 'Avenida Goiás 707 São Paulo / SP', '91234-5688', '2023-10-27'),
-('Laura Pereira', 'Rua da Consolação 808 São Paulo / SP', '91234-5689', '2023-11-02'),
-('Marcelo Andrade', 'Rua do Comércio 909 São Paulo / SP', '91234-5690', '2023-12-08'),
-('Natália Castro', 'Avenida Paraná 1010 São Paulo / SP', '91234-5691', '2024-01-13'),
-('Otávio Ramos', 'Rua das Hortênsias 1111 São Paulo / SP', '91234-5692', '2024-02-18'),
-('Paula Lima', 'Rua 24 de Maio 1212 São Paulo / SP', '91234-5693', '2024-03-24'),
-('Quirino Xavier', 'Rua Coronel Xavier de Toledo 1313 São Paulo / SP', '91234-5694', '2024-04-29'),
-('Rafael Azevedo', 'Avenida João Pessoa 1414 São Paulo / SP', '91234-5695', '2024-05-05'),
-('Sílvia Cardoso', 'Rua Sete de Abril 1515 São Paulo / SP', '91234-5696', '2024-06-10'),
-('Tiago Almeida', 'Avenida Sete de Setembro 1616 São Paulo / SP', '91234-5697', '2024-07-15'),
-('Ursula Vieira', 'Rua Primeiro de Março 1717 São Paulo / SP', '91234-5698', '2024-08-20'),
-('Vinícius Martins', 'Avenida Amazonas 1818 São Paulo / SP', '91234-5699', '2024-09-25'),
-('Wagner Barbosa', 'Rua Floriano Peixoto 1919 São Paulo / SP', '91234-5700', '2024-10-30'),
-('Xavier Almeida', 'Rua Sete de Abril 2020 São Paulo / SP', '91234-5701', '2024-11-04'),
-('Yara Pires', 'Avenida Beira Mar 2121 São Paulo / SP', '91234-5702', '2024-12-09'),
-('Zuleika Fonseca', 'Rua Antônio Prado 2222 São Paulo / SP', '91234-5703', '2023-01-14'),
-('Arthur Mendes', 'Avenida dos Andradas 2323 São Paulo / SP', '91234-5704', '2023-02-19'),
-('Bianca Nogueira', 'Rua Primeiro de Maio 2424 São Paulo / SP', '91234-5705', '2023-03-25'),
-('César Ferreira', 'Rua do Príncipe 2525 São Paulo / SP', '91234-5706', '2023-04-30'),
-('Denise Oliveira', 'Avenida Rio Branco 2626 São Paulo / SP', '91234-5707', '2023-05-06'),
-('Estela Lima', 'Rua General Osório 2727 São Paulo / SP', '91234-5708', '2023-06-11'),
-('Fábio Carvalho', 'Rua Antônio Prado 2828 São Paulo / SP', '91234-5709', '2023-07-16'),
-('Giovana Ferreira', 'Avenida Rio Grande do Sul 2929 São Paulo / SP', '91234-5710', '2023-08-21'),
-('Henrique Silva', 'Rua dos Andradas 3030 São Paulo / SP', '91234-5711', '2023-09-26'),
-('Isabela Costa', 'Rua das Palmeiras 3131 São Paulo / SP', '91234-5712', '2023-10-31'),
-('José Pereira', 'Avenida Sete de Abril 3232 São Paulo / SP', '91234-5713', '2023-11-05'),
-('Karla Almeida', 'Rua das Hortênsias 3333 São Paulo / SP', '91234-5714', '2023-12-10'),
-('Leonardo Sousa', 'Rua Primeiro de Março 3434 São Paulo / SP', '91234-5715', '2024-01-15'),
-('Maria Fernanda', 'Avenida Amazonas 3535 São Paulo / SP', '91234-5716', '2024-02-20'),
-('Nicolas Carvalho', 'Rua Antônio Prado 3636 São Paulo / SP', '91234-5717', '2024-03-27'),
-('Olívia Rocha', 'Avenida Paraná 3737 São Paulo / SP', '91234-5718', '2024-04-01'),
-('Pedro Henrique', 'Rua Coronel Xavier de Toledo 3838 São Paulo / SP', '91234-5719', '2024-05-06'),
-('Rita de Cássia', 'Rua Floriano Peixoto 3939 São Paulo / SP', '91234-5720', '2024-06-11'),
-('Sérgio Araújo', 'Avenida João Pessoa 4040 São Paulo / SP', '91234-5721', '2024-07-16'),
-('Talita Campos', 'Rua Primeiro de Maio 4141 São Paulo / SP', '91234-5722', '2024-08-21'),
-('Ulisses Monteiro', 'Avenida Brasil 4242 São Paulo / SP', '91234-5723', '2024-09-26'),
-('Vanessa Guimarães', 'Rua das Hortênsias 4343 São Paulo / SP', '91234-5724', '2024-10-31'),
-('Wesley Santos', 'Avenida Goiás 4444 São Paulo / SP', '91234-5725', '2024-11-05'),
-('Xênia Lopes', 'Rua das Flores 4545 São Paulo / SP', '91234-5726', '2024-12-10'),
-('Yuri Melo', 'Rua Augusta 4646 São Paulo / SP', '91234-5727', '2024-01-15'),
-('Zoraide Souza', 'Rua da Consolação 4747 São Paulo / SP', '91234-5728', '2024-02-20');
+('Carlos Silva', 'Rua A, 123, São Paulo - SP', '98765-4321', '2024-11-17'),
+('João Pereira', 'Av. Brasil, 456, São Paulo - SP', '91234-5678', '2024-11-17'),
+('Lucas Oliveira', 'Rua B, 789, São Paulo - SP', '99876-5432', '2024-11-17'),
+('Pedro Santos', 'Rua C, 101, São Paulo - SP', '98432-5671', '2024-11-14'),
+('Marcos Costa', 'Av. Amazonas, 202, São Paulo - SP', '99555-4321', '2024-11-13'),
+('Rafael Lima', 'Rua D, 303, São Paulo - SP', '98765-4321', '2024-11-10'),
+('Gustavo Almeida', 'Rua E, 404, São Paulo - SP', '98123-4321', '2024-03-03'),
+('Felipe Souza', 'Rua F, 505, São Paulo - SP', '99321-4321', '2024-03-10'),
+('André Martins', 'Rua G, 606, São Paulo - SP', '99123-4321', '2024-03-10'),
+('Vinícius Rocha', 'Av. São João, 707, São Paulo - SP', '98765-4321', '2024-03-10'),
+('Diego Fernandes', 'Rua H, 808, São Paulo - SP', '99654-3210', '2024-06-07'),
+('Thiago Barbosa', 'Av. Rio Branco, 909, São Paulo - SP', '98765-4320', '2024-06-06'),
+('Guilherme Ferreira', 'Rua I, 1001, São Paulo - SP', '98876-5432', '2024-07-05'),
+('Renato Silva', 'Rua J, 1102, São Paulo - SP', '99877-6543', '2024-07-05'),
+('Bruno Martins', 'Av. Norte, 1203, São Paulo - SP', '99321-4321', '2024-10-02'),
+('Eduardo Pereira', 'Rua K, 1304, São Paulo - SP', '98763-4321', '2024-10-02'),
+('Marcelo Santos', 'Av. Sul, 1405, São Paulo - SP', '98821-4321', '2024-10-01'),
+('Henrique Costa', 'Rua L, 1506, São Paulo - SP', '98123-4321', '2024-10-31'),
+('Alan Almeida', 'Rua M, 1607, São Paulo - SP', '97983-4321', '2024-08-30'),
+('Fábio Lima', 'Rua N, 1708, São Paulo - SP', '99123-4321', '2024-08-29'),
+('Maria Oliveira', 'Rua Nova, 110, São Paulo - SP', '98765-4321', '2024-09-17'),
+('Ana Costa', 'Av. Paulista, 1300, São Paulo - SP', '91234-5678', '2024-08-16'),
+('Fernanda Santos', 'Rua das Flores, 1200, São Paulo - SP', '99876-5432', '2024-07-15'),
+('Juliana Silva', 'Rua das Palmeiras, 1150, São Paulo - SP', '98432-5671', '2024-06-14'),
+('Patrícia Almeida', 'Av. República, 1010, São Paulo - SP', '99555-4321', '2024-05-13'),
+('Camila Lima', 'Rua Rio Branco, 1100, São Paulo - SP', '98765-4321', '2024-04-12'),
+('Renata Martins', 'Rua do Sol, 1400, São Paulo - SP', '98123-4321', '2024-03-11'),
+('Beatriz Souza', 'Rua das Acácias, 1350, São Paulo - SP', '99321-4321', '2024-02-10'),
+('Juliana Rocha', 'Rua dos Jasmins, 1420, São Paulo - SP', '99123-4321', '2024-01-09'),
+('Luana Barbosa', 'Av. Faria Lima, 1200, São Paulo - SP', '98765-4321', '2023-12-08'),
+('Tatiane Fernandes', 'Rua dos Lirios, 1600, São Paulo - SP', '99654-3210', '2023-11-07'),
+('Mariana Ferreira', 'Av. Brasil, 1050, São Paulo - SP', '98765-4320', '2023-10-06'),
+('Joana Rocha', 'Rua das Orquídeas, 1111, São Paulo - SP', '98876-5432', '2023-09-05'),
+('Lúcia Silva', 'Rua dos Cravos, 1020, São Paulo - SP', '99877-6543', '2023-08-04'),
+('Luciana Martins', 'Av. 9 de Julho, 1180, São Paulo - SP', '99321-4321', '2023-07-03'),
+('Sofia Pereira', 'Rua dos Eucaliptos, 1240, São Paulo - SP', '98763-4321', '2023-06-02'),
+('Cláudia Santos', 'Av. Itararé, 1310, São Paulo - SP', '98821-4321', '2023-05-01'),
+('Roberta Costa', 'Rua do Padeiro, 1155, São Paulo - SP', '98123-4321', '2023-04-30'),
+('Paula Almeida', 'Rua dos Três Irmãos, 1105, São Paulo - SP', '97983-4321', '2023-03-29'),
+('Simone Lima', 'Rua da Paz, 1165, São Paulo - SP', '99123-4321', '2023-02-28');
 
-INSERT INTO Pet(nome_pet, especie_pet, raca_pet, idade_pet, sexo_pet, id_cliente) VALUES
-('Pandora', 'canina', 'Labrador', 5, 'fêmea', 1),
-('Rex', 'canina', 'Pitbull', 3, 'macho', 1),
-('Luna', 'felina', 'Siamês', 2, 'fêmea', 2),
-('Max', 'canina', 'Beagle', 4, 'macho', 3),
-('Bella', 'canina', 'Poodle', 6, 'fêmea', 4),
-('Mimi', 'felina', 'Persa', 1, 'fêmea', 5),
-('Charlie', 'canina', 'Golden Retriever', 7, 'macho', 6),
-('Simba', 'felina', 'Maine Coon', 3, 'macho', 7),
-('Daisy', 'canina', 'Bulldog', 2, 'fêmea', 6),
-('Oscar', 'felina', 'Bengal', 4, 'macho', 6),
-('Molly', 'canina', 'Shih Tzu', 5, 'fêmea', 10),
-('Shadow', 'felina', 'Ragdoll', 6, 'macho', 11),
-('Buddy', 'canina', 'Chihuahua', 1, 'macho', 12),
-('Tiger', 'felina', 'Sphynx', 7, 'macho', 13),
-('Rosie', 'canina', 'Dachshund', 8, 'fêmea', 14),
-('Whiskers', 'felina', 'Abyssinian', 2, 'fêmea', 15),
-('Bailey', 'canina', 'Cocker Spaniel', 3, 'macho', 16),
-('Nala', 'felina', 'Scottish Fold', 4, 'fêmea', 17),
-('Jack', 'canina', 'Boxer', 5, 'macho', 18),
-('Coco', 'felina', 'Burmese', 1, 'fêmea', 19),
-('Sophie', 'canina', 'French Bulldog', 6, 'fêmea', 20),
-('Oliver', 'felina', 'Oriental', 5, 'macho', 21),
-('Rocky', 'canina', 'Doberman', 2, 'macho', 22),
-('Milo', 'felina', 'Russian Blue', 6, 'macho', 23),
-('Zoe', 'canina', 'Pug', 4, 'fêmea', 24),
-('Tigger', 'felina', 'Manx', 3, 'macho', 25),
-('Duke', 'canina', 'Great Dane', 7, 'macho', 26),
-('Chloe', 'felina', 'Birman', 2, 'fêmea', 27),
-('Ruby', 'canina', 'Basset Hound', 1, 'fêmea', 28),
-('Leo', 'felina', 'Chartreux', 4, 'macho', 29),
-('Buster', 'canina', 'Rottweiler', 5, 'macho', 30),
-('Loki', 'felina', 'Devon Rex', 5, 'macho', 31),
-('Sadie', 'canina', 'Samoyed', 6, 'fêmea', 32),
-('Smokey', 'felina', 'Scottish Fold', 1, 'macho', 33),
-('Toby', 'canina', 'Terrier', 3, 'macho', 34),
-('Missy', 'felina', 'Turkish Angora', 2, 'fêmea', 35),
-('Maggie', 'canina', 'Maltese', 8, 'fêmea', 36),
-('Ginger', 'felina', 'Bengal', 3, 'fêmea', 37),
-('Murphy', 'canina', 'Collie', 2, 'macho', 39),
-('Pepper', 'felina', 'Ocicat', 4, 'fêmea', 39),
-('Cody', 'canina', 'Pomeranian', 5, 'macho', 39),
-('Oreo', 'felina', 'Snowshoe', 5, 'macho', 41),
-('Penny', 'canina', 'Dalmatian', 1, 'fêmea', 42),
-('Lily', 'felina', 'British Shorthair', 6, 'fêmea', 43),
-('Gus', 'canina', 'Shiba Inu', 6, 'macho', 44),
-('Kitty', 'felina', 'Himalayan', 1, 'fêmea', 45),
-('Riley', 'canina', 'Border Collie', 3, 'fêmea', 46),
-('Sininho', 'felina', 'Ragamuffin', 2, 'fêmea', 47),
-('Tucker', 'canina', 'Corgi', 4, 'macho', 48),
-('Boots', 'felina', 'Norwegian Forest', 3, 'macho', 49),
-('Lucy', 'canina', 'German Shepherd', 7, 'fêmea', 50),
-('Felix', 'felina', 'Siberian', 4, 'macho', 8),
-('Bear', 'canina', 'Saint Bernard', 2, 'macho', 2),
-('Princess', 'felina', 'Burmilla', 5, 'fêmea', 3),
-('Gracie', 'canina', 'Akita', 1, 'fêmea', 4),
-('Pumpkin', 'felina', 'Balinese', 6, 'macho', 5),
-('Scout', 'canina', 'Whippet', 3, 'macho', 6),
-('Mittens', 'felina', 'American Shorthair', 1, 'fêmea', 7),
-('Zoey', 'canina', 'Husky', 5, 'fêmea', 8),
-('Salem', 'felina', 'Munchkin', 2, 'macho', 5),
-('Rocco', 'canina', 'Bernese Mountain Dog', 4, 'macho', 2),
-('Sasha', 'felina', 'Turkish Van', 3, 'fêmea', 7),
-('Maya', 'canina', 'Papillon', 6, 'fêmea', 11),
-('Fluffy', 'felina', 'Ragamuffin', 4, 'macho', 11),
-('Rusty', 'canina', 'Basenji', 2, 'macho', 4),
-('Nina', 'felina', 'Bombay', 5, 'fêmea', 5),
-('Lola', 'canina', 'Lhasa Apso', 1, 'fêmea', 11),
-('Cleo', 'felina', 'Korate', 6, 'fêmea', 10),
-('Baxter', 'canina', 'Weimaraner', 3, 'macho', 9),
-('Whiskey', 'felina', 'LaPerm', 1, 'macho', 9);
+INSERT INTO EspeciePet(nome_especie, nome_comum, alimentacao) VALUES
+('Canis lupus familiaris', 'Cachorro', 'Ração, carne, vegetais'),
+('Felis catus', 'Gato', 'Ração, carne, peixe'),
+('Testudo graeca', 'Tartaruga', 'Verduras, frutas, vegetais'),
+('Trachemys scripta elegans', 'Cágado', 'Peixes, insetos, vegetais, frutas'),
+('Cavia porcellus', 'Porquinho-da-índia', 'Ração, vegetais, frutas'),
+('Mesocricetus auratus', 'Hamster', 'Sementes, frutas'),
+('Rattus norvegicus', 'Rato', 'Ração, frutas, vegetais'),
+('Chinchilla lanigera', 'Chinchila', 'Ração, feno, vegetais'),
+('Boa constrictor', 'Jiboia', 'Roedores, aves, pequenos mamíferos'),
+('Bothrops asper', 'Cruzada', 'Roedores, anfíbios, aves'),
+('Elaphe obsoleta', 'Cobra do Milho', 'Roedores, ovos de aves'),
+('Lampropeltis triangulum', 'Cobra-do-Leite', 'Roedores, ovos de aves'),
+('Agkistrodon piscivorus', 'Cobra-dágua', 'Peixes, anfíbios roedores'),
+('Dendroaspis polylepis', 'Cobra-verde', 'Répteis, pequenos mamíferos'),
+('Corallus hortulanus', 'Jiboia-verde', 'Roedores, aves'),
+('Pituophis catenifer', 'Cobra do pinho', 'Roedores, pequenos mamíferos'),
+('Oryctolagus cuniculus', 'Coelho', 'Verduras, ração'),
+('Lepus europaeus', 'Lebre', 'Verduras, ração'),
+('Gallus gallus domesticus', 'Galinha', 'Ração, milho, vegetais'),
+('Melopsittacus undulatus', 'Periquito', 'Sementes, frutas'),
+('Betta splendens', 'Peixe Betta', 'Ração para peixes, vermes, pequenos insetos'),
+('Carassius auratus', 'Peixe Dourado', 'Ração para peixes, vegetais, pequenos invertebrados'),
+('Poecilia reticulata', 'Molly', 'Ração para peixes, vegetais, algas'),
+('Danio rerio', 'Peixinho Zebra', 'Ração para peixes, pequenos invertebrados'),
+('Pterophyllum scalare', 'Disco', 'Ração para peixes, pequenos invertebrados, larvas'),
+('Agama lizard', 'Lagarto Agama', 'Insetos, vegetais'),
+('Iguana iguana', 'Iguana-verde', 'Vegetais, frutas, flores, folhas');
+
+INSERT INTO RacaPet(id_especie, raca, tamanho, temperamento, expectativa_vida) VALUES
+(1, 'Labrador Retriever', 'Grande', 'Amigável, ativo, leal', '10-14 anos'),
+(1, 'Pastor Alemão', 'Médio a Grande', 'Inteligente, protetor, leal', '9-13 anos'),
+(1, 'Bulldog Francês', 'Pequeno', 'Sociável, afetuoso, teimoso', '10-12 anos'),
+(1, 'Beagle', 'Médio', 'Sociável, curioso, independente', '12-15 anos'),
+(1, 'Poodle', 'Médio a Grande', 'Inteligente, leal, ativo', '12-15 anos'),
+(1, 'Yorkshire Terrier', 'Pequeno', 'Sociável, corajoso, leal', '12-15 anos'),
+(1, 'Golden Retriever', 'Grande', 'Amigável, leal, inteligente', '10-12 anos'),
+(1, 'Chihuahua', 'Pequeno', 'Ativo, carinhoso, corajoso', '12-20 anos'),
+(1, 'Dachshund', 'Pequeno', 'Corajoso, amigável, teimoso', '12-16 anos'),
+(1, 'Shih Tzu', 'Pequeno', 'Amigável, leal, afetuoso', '10-16 anos'),
+
+(2, 'Persa', 'Médio', 'Calmo, afetuoso, preguiçoso', '12-16 anos'),
+(2, 'Siamês', 'Médio', 'Sociável, vocal, inteligente', '12-20 anos'),
+(2, 'Maine Coon', 'Grande', 'Amigável, inteligente, independente', '12-15 anos'),
+(2, 'Bengal', 'Médio a Grande', 'Ativo, brincalhão, curioso', '12-16 anos'),
+(2, 'Ragdoll', 'Grande', 'Sociável, afetuoso, relaxado', '12-15 anos'),
 
 
-INSERT INTO Fornecedor(nome_fornecedor, telefone_fornecedor, endereco_fornecedor) VALUES
-( 'PetClean', 998512693, 'Avenida Alameda dos Ipês, 327 São Paulo / SP' ),
-( 'HigiePet Suprimentos', 998558694, 'Rua das Palmeiras, 123 São Paulo / SP'),
-( 'BestPet Higiene', 997212685, 'Avenida Paulista, 456 São Paulo / SP'),
-( 'AmigoPet Produtos', 99635126, 'Rua dos Três Irmãos, 789 São Paulo / SP'),
-( 'CãoLimpo Distribuidora', 958963125, 'Rua da Consolação, 101 São Paulo / SP'),
-( 'Patas Limpas ModaFashion', 9982547125, 'Avenida Faria Lima, 202 São Paulo / SP');
-
-INSERT INTO Produto(nome_produto, categoria_produto, preco_produto, quantidade_produto, id_fornecedor) VALUES
-('Shampoo para Cães Pele Sensível', 'Higiene', 65.80, 50, 1),
-('Shampoo Antipulgas e Carrapatos', 'Higiene', 95.00, 30, 1),
-('Shampoo Medicamentoso', 'Higiene', 180.45, 20, 1),
-('Shampoo para Pelos Claros', 'Higiene', 98.00, 40, 1),
-('Shampoo Hidratante', 'Higiene', 75.00, 35, 1),
-('Shampoo Desodorizante', 'Higiene', 67.00, 60, 1),
-('Shampoo Seco', 'Higiene', 92.00, 25, 1),
-('Condicionador para Cães', 'Higiene',83.00, 55, 2),
-('Sabonete Antibacteriano para Cães', 'Higiene', 45.00, 50, 2),
-('Sabonete Hidratante para Cães', 'Higiene', 57.00, 45, 2),
-('Escova para Pelos Curtos', 'Higiene', 50.00, 70, 2),
-('Escova para Pelos Longos', 'Higiene', 62.00, 65, 2),
-('Pente para Desembaraçar', 'Higiene', 48.00, 80, 2),
-('Cortador de Unhas para Cães', 'Higiene', 35.90, 60, 2),
-('Creme Dental para Cães', 'Higiene', 25.00, 100, 2),
-('Escova de Dentes para Cães', 'Higiene', 32.90, 90, 2),
-('Limpador de Ouvidos para Cães', 'Higiene', 88.00, 50, 2),
-('Lenços Umedecidos para Cães', 'Higiene', 48.00, 70, 2),
-('Perfume para Cães', 'Higiene', 155.00, 40, 2),
-('Tapete Higiênico para Cães', 'Higiene', 55.00, 30, 2),
-('Desinfetante para Ambientes', 'Higiene', 40.00, 80, 2),
-('Removedor de Manchas e Odores', 'Higiene', 40.00, 50, 2),
-('Shampoo para Gatos', 'Higiene', 63.00, 60, 1),
-('Shampoo Seco para Gatos', 'Higiene', 78.00, 40, 1),
-('Condicionador para Gatos', 'Higiene', 32.00, 55, 1),
-('Sabonete para Gatos', 'Higiene', 38.00, 50, 1),
-('Escova para Pelos de Gatos', 'Higiene', 62.00, 65, 1),
-('Pente para Gatos', 'Higiene', 20.00, 70, 1),
-('Cortador de Unhas para Gatos', 'Higiene', 46.00, 60, 1),
-('Creme Dental para Gatos', 'Higiene', 37.90, 100, 1),
-('Escova de Dentes para Gatos', 'Higiene', 34.00, 90, 1),
-('Limpador de Ouvidos para Gatos', 'Higiene', 70.00, 50, 1),
-('Lenços Umedecidos para Gatos', 'Higiene', 39.00, 70, 1),
-('Perfume para Gatos', 'Higiene', 157.00, 40, 1),
-('Desinfetante para Gatos', 'Higiene', 32.00, 80, 1),
-('Removedor de Manchas para Gatos', 'Higiene', 42.00, 50, 1),
-('Comedouro para Cães', 'Alimentação', 80.00, 100, 3),
-('Bebedouro para Cães', 'Alimentação', 85.00, 90, 3),
-('Comedouro para Gatos', 'Alimentação', 88.00, 110, 3),
-('Bebedouro para Gatos', 'Alimentação', 122.00, 100, 3),
-('Ração Seca para Cães Adultos', 'Alimentação', 120.00, 40, 3),
-('Ração Seca para Cães Filhotes', 'Alimentação', 130.00, 35, 3),
-('Ração Úmida para Cães Adultos', 'Alimentação', 100.00, 50, 3),
-('Ração Úmida para Cães Filhotes', 'Alimentação', 110.00, 45, 3),
-('Ração Seca para Gatos Adultos', 'Alimentação', 115.00, 50, 3),
-('Ração Seca para Gatos Filhotes', 'Alimentação', 125.00, 45, 3),
-('Ração Úmida para Gatos Adultos', 'Alimentação', 95.00, 55, 3),
-('Ração Úmida para Gatos Filhotes', 'Alimentação', 105.00, 50, 3),
-('Petiscos para Cães', 'Alimentação', 40.00, 70, 3),
-('Petiscos para Gatos', 'Alimentação', 35.00, 75, 3),
-('Osso de Menta para Cães', 'Brinquedos', 35.00, 80, 4),
-('Bola de Borracha para Cães', 'Brinquedos', 12.00, 90, 4),
-('Pelúcia para Cães', 'Brinquedos', 25.00, 70, 4),
-('Corda de Puxar para Cães', 'Brinquedos', 18.00, 85, 4),
-('Arranhador para Gatos', 'Brinquedos', 45.00, 50, 4),
-('Bolinha com Guizo para Gatos', 'Brinquedos', 25.00, 100, 4),
-('Varinha com Penas para Gatos', 'Brinquedos', 45.00, 90, 4),
-('Túnel para Gatos', 'Brinquedos', 250.00, 60, 4),
-('Cama para Cães Pequenos', 'Acessórios', 170.00, 40, 5),
-('Cama para Cães Médios', 'Acessórios', 290.00, 35, 5),
-('Cama para Cães Grandes', 'Acessórios', 410.00, 30, 5),
-('Cobertor para Cães', 'Acessórios', 110.00, 45, 5),
-('Casinha para Cães Pequenos', 'Acessórios', 150.00, 20, 5),
-('Casinha para Cães Médios', 'Acessórios', 280.00, 15, 5),
-('Casinha para Cães Grandes', 'Acessórios', 500.00, 10, 5),
-('Coleira para Cães Pequenos', 'Acessórios', 75.00, 60, 5),
-('Coleira para Cães Médios', 'Acessórios', 90.00, 55, 5),
-('Coleira para Cães Grandes', 'Acessórios', 135.00, 50, 5),
-('Guia para Cães Pequenos', 'Acessórios', 65.00, 70, 5),
-('Guia para Cães Médios', 'Acessórios', 85.00, 65, 5),
-('Guia para Cães Grandes', 'Acessórios', 100.00, 60, 5),
-('Peitoral para Cães Pequenos', 'Acessórios', 140.00, 50, 5),
-('Peitoral para Cães Médios', 'Acessórios', 145.00, 45, 5),
-('Peitoral para Cães Grandes', 'Acessórios', 150.00, 40, 5),
-('Capa de Chuva para Cães', 'Acessórios', 35.00, 55, 5),
-('Roupinha para Cães', 'Acessórios', 85.00, 50, 5),
-('Cinto de Segurança para Cães', 'Acessórios', 50.00, 40, 5),
-('Cinto de Segurança para Gatos', 'Acessórios', 45.00, 45, 5),
-('Transportadora para Cães', 'Acessórios', 150.00, 25, 5),
-('Transportadora para Gatos', 'Acessórios', 140.00, 30, 5),
-('Gaiola para Cães', 'Acessórios', 130.00, 35, 5),
-('Gaiola para Gatos', 'Acessórios', 120.00, 40, 5),
-('Cinto de Segurança para Cães e Gatos', 'Acessórios', 55.00, 50, 5),
-('Colete de Inverno para', 'Moda Pet', 85.00, 60, 6),
-('Vestido de Festa para Cães', 'Moda Pet', 105.00, 40, 6),
-('Vestido de Festa para Gatos', 'Moda Pet', 70.00, 55, 6),
-('Camiseta para Gatos Pequenos', 'Moda Pet', 55.00, 65, 6),
-('Manto para Gatos', 'Moda Pet', 160.00, 30, 6),
-('Suéter para Gatos' , 'Moda Pet', 270.00, 20, 6);
-select * from Fornecedor;
+(3, 'Tartaruga Grega', 'Pequeno a Médio', 'Calma, solitária', '50-80 anos'),
+(3, 'Tartaruga de Hermann', 'Pequeno a Médio', 'Calma, solitária', '50-70 anos'),
+(3, 'Tartaruga de Caixa', 'Médio', 'Calma, solitária', '30-40 anos'),
 
 
+(4, 'Cágado Vermelho', 'Médio', 'Calmo, solitário', '20-40 anos'),
+(4, 'Cágado do Sul', 'Médio', 'Calmo, tímido', '25-40 anos'),
+(4, 'Cágado de Pano', 'Médio', 'Calmo, solitário', '20-40 anos'),
+
+
+(5, 'Porquinho-da-índia Americano', 'Pequeno', 'Sociável, curioso, amigável', '4-6 anos'),
+(5, 'Porquinho-da-índia Abyssinian', 'Pequeno', 'Sociável, ativo, amigável', '4-6 anos'),
+(5, 'Porquinho-da-índia Peruviano', 'Pequeno', 'Sociável, carinhoso, ativo', '4-6 anos'),
+
+(6, 'Hamster Sírio', 'Pequeno', 'Ativo, noturno, curioso', '2-3 anos'),
+(6, 'Hamster Roborovski', 'Pequeno', 'Ativo, rápido, sociável', '3-4 anos'),
+(6, 'Hamster Anão Russo', 'Pequeno', 'Ativo, sociável, curioso', '2-3 anos'),
+
+(7, 'Rato Doméstico', 'Pequeno', 'Curioso, sociável, inteligente', '2-3 anos'),
+(7, 'Rato Dumbo', 'Pequeno', 'Sociável, dócil, inteligente', '2-3 anos'),
+(7, 'Rato Standard', 'Pequeno', 'Curioso, ativo, amigável', '2-3 anos'),
+(7, 'Rato Rex', 'Pequeno', 'Afetuoso, inteligente, sociável', '2-3 anos'),
+(7, 'Rato de Pele Lisa', 'Pequeno', 'Sociável, curioso, amigável', '2-3 anos'),
+
+
+(8, 'Chinchila Padrão', 'Pequeno', 'Calmo, noturno, curioso', '10-15 anos'),
+(8, 'Chinchila de Pêlo Curto', 'Pequeno', 'Sociável, amigável, ativo', '10-15 anos'),
+(8, 'Chinchila Black Velvet', 'Pequeno', 'Sociável, tranquilo, curioso', '10-15 anos'),
+(8, 'Chinchila Tan', 'Pequeno', 'Sociável, carinhoso, ativo', '10-15 anos'),
+
+
+(9, 'Jiboia', 'Grande', 'Calma, territorial, sedentária', '20-30 anos'),
+
+(10, 'Cruzada', 'Médio', 'Agressiva, territorial', '10-20 anos'),
+
+(11, 'Cobra do Milho', 'Médio', 'Calma, curiosa', '10-15 anos'),
+
+(12, 'Cobra-do-Leite', 'Médio', 'Ativa, curiosa', '10-20 anos'),
+(13, 'Cobra-dágua', 'Médio', 'Calma, territorial', '10-15 anos'),
+(14, 'Cobra-verde', 'Grande', 'Agressiva, territorial', '10-20 anos'),
+(15, 'Jiboia-verde', 'Grande', 'Calma, territorial', '20-30 anos'),
+(16, 'Cobra do Pinho', 'Médio', 'Curiosa, ativa', '15-20 anos'),
+
+
+(17, 'Coelho Holandês', 'Pequeno', 'Sociável, ativo, amigável', '5-10 anos'),
+(17, 'Coelho Mini Rex', 'Pequeno', 'Calmo, afetuoso, curioso', '5-8 anos'),
+(17, 'Coelho Angorá', 'Médio', 'Gentil, tranquilo, sociável', '5-12 anos'),
+(17, 'Coelho Lop', 'Médio', 'Sociável, brincalhão, amigável', '5-7 anos'),
+(17, 'Coelho Lionhead', 'Pequeno', 'Sociável, energético, curioso', '5-8 anos'),
+(17, 'Coelho Flemish Giant', 'Grande', 'Calmo, amigável, gentil', '5-10 anos'),
+
+
+(18, 'Lebre Europeia', 'Médio', 'Curiosa, ativa, solitária', '5-10 anos'),
+(18, 'Lebre do Deserto', 'Médio', 'Rápida, esquiva, ativa', '5-8 anos'),
+(18, 'Lebre de Cauda Branca', 'Médio', 'Curiosa, ativa, solitária', '6-10 anos'),
+(18, 'Lebre Americana', 'Médio', 'Ágil, independente, ativa', '5-7 anos'),
+
+
+(19, 'Galinha Rhode Island Red', 'Médio', 'Calma, sociável, produtiva', '5-8 anos'),
+(19, 'Galinha Plymouth Rock', 'Médio', 'Sociável, amigável, resistente', '5-10 anos'),
+(19, 'Galinha Sussex', 'Médio', 'Amigável, ativa, sociável', '5-8 anos'),
+(19, 'Galinha Australorp', 'Médio', 'Trabalhadora, leal, sociável', '6-10 anos'),
+(19, 'Galinha Leghorn', 'Médio', 'Ativa, resistente, sociável', '5-10 anos'),
+
+
+
+(20, 'Periquito Australiano', 'Pequeno', 'Sociável, ativo, inteligente', '5-10 anos'),
+(20, 'Periquito Albino', 'Pequeno', 'Curioso, ativo, amigável', '5-8 anos'),
+(20, 'Periquito Verde', 'Pequeno', 'Sociável, alegre, comunicativo', '5-10 anos'),
+(20, 'Periquito Lutino', 'Pequeno', 'Brincalhão, amigável, curioso', '5-8 anos'),
+(20, 'Periquito Cobalto', 'Pequeno', 'Sociável, ativo, alegre', '5-10 anos'),
+
+(21, 'Peixe Betta Veiltail', 'Pequeno', 'Agressivo, territorial', '2-4 anos'),
+(21, 'Peixe Betta Halfmoon', 'Pequeno', 'Agressivo, territorial', '2-4 anos'),
+(21, 'Peixe Betta Crowntail', 'Pequeno', 'Agressivo, territorial', '2-4 anos'),
+(21, 'Peixe Betta Plakat', 'Pequeno', 'Agressivo, territorial', '2-4 anos'),
+(21, 'Peixe Betta Delta', 'Pequeno', 'Agressivo, territorial', '2-4 anos'),
+(21, 'Peixe Betta Doubletail', 'Pequeno', 'Agressivo, territorial', '2-4 anos'),
+(21, 'Peixe Betta Rose', 'Pequeno', 'Agressivo, territorial', '2-4 anos'),
+(21, 'Peixe Betta Koi', 'Pequeno', 'Agressivo, territorial', '2-4 anos'),
+
+
+(22, 'Peixe Dourado Comum', 'Médio', 'Sociável, pacífico', '5-10 anos'),
+(22, 'Peixe Dourado Fantail', 'Médio', 'Sociável, tranquilo', '5-10 anos'),
+(22, 'Peixe Dourado Ranchu', 'Médio', 'Tranquilo, amigável', '5-10 anos'),
+(22, 'Peixe Dourado Oranda', 'Médio', 'Sociável, tranquilo', '5-10 anos'),
+(22, 'Peixe Dourado Lionhead', 'Médio', 'Calmo, amigável', '5-10 anos'),
+(22, 'Peixe Dourado Shubunkin', 'Médio', 'Sociável, ativo', '5-10 anos'),
+(22, 'Peixe Dourado Black Moor', 'Médio', 'Tranquilo, sociável', '5-10 anos'),
+(22, 'Peixe Dourado Pearlscale', 'Médio', 'Sociável, calmo', '5-10 anos'),
+
+
+
+(23, 'Molly Preto', 'Pequeno', 'Sociável, pacífico', '3-5 anos'),
+(23, 'Molly Lyretail', 'Pequeno', 'Sociável, calmo', '3-5 anos'),
+(23, 'Molly Balloon', 'Pequeno', 'Amigável, pacífico', '3-5 anos'),
+(23, 'Molly Dourado', 'Pequeno', 'Sociável, ativo', '3-5 anos'),
+(23, 'Molly Dalmatian', 'Pequeno', 'Sociável, calmo', '3-5 anos'),
+(23, 'Molly Azul', 'Pequeno', 'Pacífico, sociável', '3-5 anos'),
+(23, 'Molly Princesa', 'Pequeno', 'Curiosa, ativa', '3-5 anos'),
+(23, 'Molly Esmeralda', 'Pequeno', 'Sociável, amigável', '3-5 anos'),
+(23, 'Molly Espectral', 'Pequeno', 'Sociável, tranquilo', '3-5 anos'),
+(23, 'Molly Pearl', 'Pequeno', 'Curiosa, amigável', '3-5 anos'),
+
+
+(24, 'Peixinho Zebra Azul', 'Pequeno', 'Ativo, sociável', '3-5 anos'),
+(24, 'Peixinho Zebra Gold', 'Pequeno', 'Sociável, amigável', '3-5 anos'),
+(24, 'Peixinho Zebra Verde', 'Pequeno', 'Sociável, ativo', '3-5 anos'),
+(24, 'Peixinho Zebra Branco', 'Pequeno', 'Sociável, calmo', '3-5 anos'),
+(24, 'Peixinho Zebra Albino', 'Pequeno', 'Sociável, ativo', '3-5 anos'),
+(24, 'Peixinho Zebra Melon', 'Pequeno', 'Curioso, sociável', '3-5 anos'),
+(24, 'Peixinho Zebra Red', 'Pequeno', 'Amigável, sociável', '3-5 anos'),
+(24, 'Peixinho Zebra Black', 'Pequeno', 'Ativo, sociável', '3-5 anos'),
+(24, 'Peixinho Zebra Longfin', 'Pequeno', 'Sociável, ativo', '3-5 anos'),
+(24, 'Peixinho Zebra Leopard', 'Pequeno', 'Sociável, curioso', '3-5 anos'),
+
+
+(25, 'Disco Padrão', 'Médio', 'Sociável, tranquilo', '5-10 anos'),
+(25, 'Disco Cobre', 'Médio', 'Calmo, sociável', '5-10 anos'),
+(25, 'Disco Azul', 'Médio', 'Sociável, ativo', '5-10 anos'),
+(25, 'Disco Leopardo', 'Médio', 'Calmo, sociável', '5-10 anos'),
+(25, 'Disco Super Red', 'Médio', 'Sociável, tranquilo', '5-10 anos'),
+(25, 'Disco Albino', 'Médio', 'Curioso, amigável', '5-10 anos'),
+(25, 'Disco Pigeon Blood', 'Médio', 'Sociável, pacífico', '5-10 anos'),
+(25, 'Disco Diamond', 'Médio', 'Calmo, sociável', '5-10 anos'),
+(25, 'Disco Golden', 'Médio', 'Sociável, tranquilo', '5-10 anos'),
+(25, 'Disco Turquesa', 'Médio', 'Sociável, pacífico', '5-10 anos'),
+
+(26, 'Agama do Deserto', 'Médio', 'Sociável, ativo', '8-12 anos'),
+(26, 'Agama Barbado', 'Médio', 'Sociável, ativo', '8-12 anos'),
+(26, 'Agama do Saara', 'Médio', 'Curioso, ativo', '8-12 anos'),
+(26, 'Agama Azul', 'Médio', 'Sociável, ativo', '8-12 anos'),
+(26, 'Agama Egípcio', 'Médio', 'Curioso, ativo', '8-12 anos'),
+(26, 'Agama Senegal', 'Médio', 'Sociável, ativo', '8-12 anos'),
+(26, 'Agama Oriental', 'Médio', 'Curioso, sociável', '8-12 anos'),
+(26, 'Agama do Mali', 'Médio', 'Sociável, ativo', '8-12 anos'),
+(26, 'Agama de Cauda Longa', 'Médio', 'Curioso, ativo', '8-12 anos'),
+(26, 'Agama Vermelha', 'Médio', 'Curioso, sociável', '8-12 anos'),
+
+
+(27, 'Iguana-verde Padrão', 'Grande', 'Calma, territorial', '15-20 anos'),
+(27, 'Iguana-verde Albina', 'Grande', 'Calma, territorial', '15-20 anos'),
+(27, 'Iguana-verde Vermelha', 'Grande', 'Sociável, territorial', '15-20 anos'),
+(27, 'Iguana-verde Azul', 'Grande', 'Calma, tranquila', '15-20 anos'),
+(27, 'Iguana-verde Leucística', 'Grande', 'Calma, territorial', '15-20 anos'),
+(27, 'Iguana-verde Negra', 'Grande', 'Calma, sociável', '15-20 anos'),
+(27, 'Iguana-verde Micro', 'Grande', 'Sociável, tranquila', '15-20 anos'),
+(27, 'Iguana-verde Light', 'Grande', 'Sociável, tranquila', '15-20 anos'),
+(27, 'Iguana-verde Tropical', 'Grande', 'Territorial, calma', '15-20 anos'),
+(27, 'Iguana-verde de Cauda Longa', 'Grande', 'Territorial, sociável', '15-20 anos');
+
+INSERT INTO Pet(id_cliente, id_especie, id_raca, nome_pet, idade_pet, sexo_pet) VALUES
+(1, 1, 1, 'Rex', 3, 'Macho'),
+(1, 1, 6, 'Luna', 2, 'Fêmea'),
+(1, 1, 4, 'Toby', 5, 'Macho'),
+(5, 1, 5, 'Bella', 1, 'Fêmea'),
+(5, 1, 8, 'Max', 4, 'Macho'),
+(1, 1, 8, 'Theodoro', 2, 'Macho'),
+(10, 1, 7, 'Mia', 8, 'Fêmea'),
+(10, 1, 6, 'Whiskey', 10, 'Macho'),
+(10, 1, 8, 'Nina', 4, 'Fêmea'),
+(20, 1, 3, 'Mel', 6, 'Fêmea'),
+(21, 1, 6, 'Yoshi', 1, 'Macho'),
+(32, 2, 11, 'Fifi', 2, 'Fêmea'),
+(32, 2, 12, 'Rocky', 5, 'Macho'),
+(2, 2, 13, 'Tina', 3, 'Fêmea'),
+(10, 2, 12, 'Lucky', 2, 'Macho'),
+(11, 2, 13, 'Chico', 6, 'Macho'),
+(20, 2, 11, 'Dudu', 3, 'Macho'),
+(25, 2, 11, 'Charlie', 4, 'Fêmea'),
+(27, 2, 12, 'Bilu', 2, 'Macho'),
+(32, 2, 14, 'Lola', 1, 'Fêmea'),
+(33, 2, 15, 'Whiskey', 2, 'Macho'),
+(40, 2, 11, 'Bela', 3, 'Fêmea'),
+(7, 2, 11, 'Pipoca', 5, 'Macho'),
+(7, 2, 13, 'Luna', 4, 'Fêmea'),
+(2, 2, 14, 'Bob', 2, 'Macho'),
+(2, 2, 12, 'Jade', 1, 'Fêmea'),
+(19, 2, 13, 'Spike', 3, 'Macho'),
+(17, 2, 11, 'Amoedo', 4, 'Macho'),
+(2, 2, 15, 'Maya', 2, 'Fêmea'),
+(30, 3, 16, 'Zoey', 5, 'Fêmea'),
+(31, 3, 17, 'Pipoca', 3, 'Macho'),
+(32, 5, 22, 'Sasha', 2, 'Fêmea'),
+(33, 5, 32, 'Lucy', 4, 'Fêmea'),
+(34, 8, 34, 'Bob', 5, 'Macho'),
+(35, 8, 35, 'Beto', 3, 'Macho'),
+(36, 8, 36, 'Gigi', 2, 'Fêmea'),
+(37, 8, 36, 'Max', 4, 'Macho'),
+(38, 9, 37, 'Jack', 6, 'Macho'),
+(2, 9, 37, 'Sandy', 3, 'Fêmea'),
+(40, 17, 49, 'Fifi', 2, 'Fêmea'),
+(12, 17, 49, 'Bobi', 1, 'Macho'),
+(6, 17, 49, 'Ted', 4, 'Macho'),
+(15, 17, 46, 'Bela', 5, 'Fêmea'),
+(15, 19, 59, 'Lulu', 2, 'Fêmea'),
+(7, 20, 62, 'Frida', 3, 'Macho'),
+(18, 20, 62, 'Toby', 6, 'Macho'),
+(23, 21, 65, 'Brutus', 2, 'Macho'),
+(29, 21, 65, 'Bella', 1, 'Fêmea'),
+(35, 21, 66, 'Tino', 3, 'Macho'),
+(33, 21, 68, 'Dori', 4, 'Fêmea'),
+(19, 27, 121, 'Shiva', 2, 'Macho'),
+(20, 27, 121, 'Tina', 1, 'Fêmea'),
+(9, 22, 73, 'Spike', 4, 'Macho'),
+(12, 22, 73, 'Pepper', 3, 'Fêmea'),
+(11, 22, 75, 'Juju', 5, 'Macho'),
+(15, 22, 74, 'Buddy', 7, 'Macho'),
+(40, 1, 1, 'Cris', 1, 'Fêmea'),
+(36, 1, 2, 'Rex', 6, 'Macho'),
+(38, 1, 1, 'Lola', 4, 'Fêmea'),
+(36, 1, 3, 'Junior', 2, 'Macho'),
+(14, 1, 4, 'Toby', 3, 'Macho'),
+(14, 1, 10, 'Sasha', 1, 'Fêmea'),
+(11, 1, 10, 'Zac', 5, 'Macho'),
+(11, 1, 6, 'Mel', 3, 'Fêmea'),
+(11, 1, 6, 'Simba', 6, 'Macho'),
+(11, 1, 6, 'Tina', 2, 'Fêmea'),
+(11, 1, 8, 'Buddy', 1, 'Macho'),
+(24, 2, 12, 'Rita', 5, 'Fêmea'),
+(24, 12, 10, 'Apolo', 10, 'Macho'),
+(10, 2, 13, 'Theo', 5, 'Macho'),
+(10, 2, 11, 'Mia', 3, 'Fêmea'),
+(12, 2, 12, 'Fred', 2, 'Macho'),
+(6, 2, 12, 'Luli', 4, 'Fêmea'),
+(5, 2, 11, 'Spicky', 1, 'Macho'),
+(31, 2, 12, 'Thor', 3, 'Macho'),
+(39, 2, 13, 'Lia', 5, 'Fêmea'),
+(36, 1, 3, 'Pipoca', 9, 'Macho'),
+(8, 1, 1, 'Melissa', 6, 'Fêmea'),
+(3, 1, 2, 'Toby', 4, 'Macho'),
+(38, 1, 1, 'Bredy', 2, 'Macho'),
+(37, 1, 2, 'Zoey', 3, 'Fêmea'),
+(36, 2, 13, 'Alvin', 5, 'Macho'),
+(19, 2, 11, 'Amora', 4, 'Fêmea'),
+(18, 2, 12, 'Brutus', 2, 'Macho'),
+(37, 2, 13, 'Pandora', 3, 'Fêmea'),
+(31, 2, 11, 'Charlie', 2, 'Macho'),
+(32, 1, 2, 'Belinha', 6, 'Fêmea'),
+(5, 1, 6, 'Snoop', 4, 'Macho'),
+(7, 1, 8, 'Mel', 3, 'Fêmea'),
+(15, 1, 9, 'Simba', 5, 'Macho'),
+(15, 1, 9, 'Zoey', 2, 'Fêmea'),
+(24, 6, 26, 'Buddy', 4, 'Macho'),
+(26, 6, 25, 'Theo', 2, 'Macho'),
+(16, 6, 25, 'Lola', 5, 'Fêmea'),
+(12, 17, 46, 'Thor', 3, 'Macho'),
+(7, 17, 45, 'Baby', 4, 'Fêmea'),
+(7, 17, 47, 'Lucky', 2, 'Macho'),
+(8, 4, 19, 'Rex', 1, 'Macho'),
+(9, 4, 20, 'Thor', 3, 'Fêmea'),
+(6, 4, 20, 'Shiva', 5, 'Fêmea');
+
+INSERT INTO Produto(nome_produto, categoria_produto, preco_produto, quantidade_produto) VALUES
+('Shampoo para Cães Pele Sensível', 'Higiene', 65.80, 50),
+('Shampoo Antipulgas e Carrapatos', 'Higiene', 95.00, 30),
+('Shampoo Medicamentoso', 'Higiene', 180.45, 20),
+('Shampoo para Pelos Claros', 'Higiene', 98.00, 40),
+('Shampoo Hidratante', 'Higiene', 75.00, 35),
+('Shampoo Desodorizante', 'Higiene', 67.00, 60),
+('Shampoo Seco', 'Higiene', 92.00, 25),
+('Condicionador para Cães', 'Higiene', 83.00, 55),
+('Sabonete Antibacteriano para Cães', 'Higiene', 45.00, 50),
+('Sabonete Hidratante para Cães', 'Higiene', 57.00, 45),
+('Escova para Pelos Curtos', 'Higiene', 50.00, 70),
+('Escova para Pelos Longos', 'Higiene', 62.00, 65),
+('Pente para Desembaraçar', 'Higiene', 48.00, 80),
+('Cortador de Unhas para Cães', 'Higiene', 35.90, 60),
+('Creme Dental para Cães', 'Higiene', 25.00, 100),
+('Escova de Dentes para Cães', 'Higiene', 32.90, 90),
+('Limpador de Ouvidos para Cães', 'Higiene', 88.00, 50),
+('Lenços Umedecidos para Cães', 'Higiene', 48.00, 70),
+('Perfume para Cães', 'Higiene', 155.00, 40),
+('Tapete Higiênico para Cães', 'Higiene', 55.00, 30),
+('Desinfetante para Ambientes', 'Higiene', 40.00, 80),
+('Removedor de Manchas e Odores', 'Higiene', 40.00, 50),
+('Shampoo para Gatos', 'Higiene', 63.00, 60),
+('Shampoo Seco para Gatos', 'Higiene', 78.00, 40),
+('Condicionador para Gatos', 'Higiene', 32.00, 55),
+('Sabonete para Gatos', 'Higiene', 38.00, 50),
+('Escova para Pelos de Gatos', 'Higiene', 62.00, 65),
+('Pente para Gatos', 'Higiene', 20.00, 70),
+('Cortador de Unhas para Gatos', 'Higiene', 46.00, 60),
+('Creme Dental para Gatos', 'Higiene', 37.90, 100),
+('Escova de Dentes para Gatos', 'Higiene', 34.00, 90),
+('Limpador de Ouvidos para Gatos', 'Higiene', 70.00, 50),
+('Lenços Umedecidos para Gatos', 'Higiene', 39.00, 70),
+('Perfume para Gatos', 'Higiene', 157.00, 40),
+('Desinfetante para Gatos', 'Higiene', 32.00, 80),
+('Removedor de Manchas para Gatos', 'Higiene', 42.00, 50),
+('Comedouro para Cães', 'Alimentação', 80.00, 100),
+('Bebedouro para Cães', 'Alimentação', 85.00, 90),
+('Comedouro para Gatos', 'Alimentação', 88.00, 110),
+('Bebedouro para Gatos', 'Alimentação', 122.00, 100),
+('Ração Seca para Cães Adultos', 'Alimentação', 120.00, 40),
+('Ração Seca para Cães Filhotes', 'Alimentação', 130.00, 35),
+('Ração Úmida para Cães Adultos', 'Alimentação', 100.00, 50),
+('Ração Úmida para Cães Filhotes', 'Alimentação', 110.00, 45),
+('Ração Seca para Gatos Adultos', 'Alimentação', 115.00, 50),
+('Ração Seca para Gatos Filhotes', 'Alimentação', 125.00, 45),
+('Ração Úmida para Gatos Adultos', 'Alimentação', 95.00, 55),
+('Ração Úmida para Gatos Filhotes', 'Alimentação', 105.00, 50),
+('Petiscos para Cães', 'Alimentação', 40.00, 70),
+('Petiscos para Gatos', 'Alimentação', 35.00, 75),
+('Osso de Menta para Cães', 'Brinquedos', 35.00, 80),
+('Bola de Borracha para Cães', 'Brinquedos', 12.00, 90),
+('Pelúcia para Cães', 'Brinquedos', 25.00, 70),
+('Corda de Puxar para Cães', 'Brinquedos', 18.00, 85),
+('Arranhador para Gatos', 'Brinquedos', 45.00, 50),
+('Bolinha com Guizo para Gatos', 'Brinquedos', 25.00, 100),
+('Varinha com Penas para Gatos', 'Brinquedos', 45.00, 90),
+('Túnel para Gatos', 'Brinquedos', 250.00, 60),
+('Cama para Cães Pequenos', 'Acessórios', 170.00, 40),
+('Cama para Cães Médios', 'Acessórios', 290.00, 35),
+('Cama para Cães Grandes', 'Acessórios', 410.00, 30),
+('Cobertor para Cães', 'Acessórios', 110.00, 45),
+('Casinha para Cães Pequenos', 'Acessórios', 150.00, 20),
+('Casinha para Cães Médios', 'Acessórios', 280.00, 15),
+('Casinha para Cães Grandes', 'Acessórios', 500.00, 10),
+('Coleira para Cães Pequenos', 'Acessórios', 75.00, 60),
+('Coleira para Cães Médios', 'Acessórios', 90.00, 55),
+('Coleira para Cães Grandes', 'Acessórios', 135.00, 50),
+('Guia para Cães Pequenos', 'Acessórios', 65.00, 70),
+('Guia para Cães Médios', 'Acessórios', 85.00, 65),
+('Guia para Cães Grandes', 'Acessórios', 100.00, 60),
+('Peitoral para Cães Pequenos', 'Acessórios', 140.00, 50),
+('Peitoral para Cães Médios', 'Acessórios', 145.00, 45),
+('Peitoral para Cães Grandes', 'Acessórios', 150.00, 40),
+('Capa de Chuva para Cães', 'Acessórios', 35.00, 55),
+('Roupinha para Cães', 'Acessórios', 85.00, 50),
+('Cinto de Segurança para Cães', 'Acessórios', 50.00, 40),
+('Cinto de Segurança para Gatos', 'Acessórios', 45.00, 45),
+('Transportadora para Cães', 'Acessórios', 150.00, 25),
+('Transportadora para Gatos', 'Acessórios', 140.00, 30),
+('Gaiola para Cães', 'Acessórios', 130.00, 35),
+('Gaiola para Gatos', 'Acessórios', 120.00, 40),
+('Cinto de Segurança para Cães e Gatos', 'Acessórios', 55.00, 50),
+('Colete de Inverno para', 'Moda Pet', 85.00, 60),
+('Vestido de Festa para Cães', 'Moda Pet', 105.00, 40),
+('Vestido de Festa para Gatos', 'Moda Pet', 70.00, 55),
+('Camiseta para Gatos Pequenos', 'Moda Pet', 55.00, 65),
+('Manto para Gatos', 'Moda Pet', 160.00, 30),
+('Suéter para Gatos', 'Moda Pet', 270.00, 20);
 
 INSERT INTO Venda (id_cliente, id_produto, data_venda) VALUES
 (1, 43, '2024-01-10'),
@@ -347,16 +574,16 @@ INSERT INTO Venda (id_cliente, id_produto, data_venda) VALUES
 (38, 86, '2024-10-05'),
 (39, 87, '2024-11-10'),
 (40, 88, '2024-12-15'),
-(41, 89, '2024-01-25'),
-(42, 38, '2024-02-05'),
-(43, 89, '2024-03-10'),
-(44, 47, '2024-04-15'),
-(45, 48, '2024-05-20'),
-(46, 40, '2024-06-25'),
-(47, 38, '2024-07-30'),
-(48, 62, '2024-08-05'),
-(49, 68, '2024-09-10'),
-(50, 63, '2024-10-15');
+(36, 89, '2024-01-25'),
+(31, 38, '2024-02-05'),
+(13, 89, '2024-03-10'),
+(24, 47, '2024-04-15'),
+(25, 48, '2024-05-20'),
+(26, 40, '2024-06-25'),
+(17, 38, '2024-07-30'),
+(31, 62, '2024-08-05'),
+(33, 68, '2024-09-10'),
+(40, 63, '2024-10-15');
 
 INSERT INTO Funcionario (nome_funcionario, cargo_funcionario, telefone_funcionario, data_contratacao_funcionario) VALUES
 ('Alana Passos', 'Veterinário', '998565892', '2022-03-14'),
@@ -425,7 +652,6 @@ INSERT INTO Servico(id_funcionario, nome_servico, preco_servico, duracao_servico
 (22, 'aula de natação para cães', 100, '01:00:00'),
 (23, 'aula de natação para gatos', 100, '01:00:00');
 
-
 INSERT INTO Agendamento(id_cliente, id_pet, id_servico, data_agendamento, status_agendamento) VALUES
 (1, 1, 1, '2024-10-11', 'concluido'),
 (1, 2, 1, '2024-10-11', 'concluido'),
@@ -448,15 +674,16 @@ INSERT INTO Agendamento(id_cliente, id_pet, id_servico, data_agendamento, status
 (9, 70, 20, '2024-10-28', 'pendente');
 
 
+
+SELECT * from EspeciePet;
+SELECT * from RacaPet;
 select * from Produto;
 select * from Cliente;
 select * from Servico;
 select * from Funcionario;
 select * from Pet;
-select * from Fornecedor;
 select * from Venda;
 select * from Agendamento;
-
 
 #1- Quais clientes têm pets cadastrados no sistema?
 SELECT c.id_cliente, c.nome_cliente, p.nome_pet 
@@ -468,15 +695,16 @@ SELECT c.id_cliente, c.nome_cliente, p.nome_pet
 SELECT *
 	FROM Pet p
 	JOIN Cliente c ON p.id_cliente = c.id_cliente
-    WHERE c.nome_cliente = 'Laura Pereira';
+    WHERE c.nome_cliente = 'Tatiane Fernandes';
     
 #3- Qual cliente possui mais pets?
-SELECT Cliente.nome_cliente,
-		COUNT(Pet.id_pet) AS numero_de_pets 
-        FROM Cliente 
-        JOIN Pet ON Cliente.id_cliente = Pet.id_cliente 
-        GROUP BY Cliente.nome_cliente 
-        ORDER BY numero_de_pets DESC LIMIT 1;
+SELECT c.id_cliente, c.nome_cliente, COUNT(p.id_pet) AS numero_de_pets
+FROM Cliente c
+JOIN Pet p ON c.id_cliente = p.id_cliente
+GROUP BY c.id_cliente, c.nome_cliente
+ORDER BY numero_de_pets DESC
+LIMIT 1;
+
 
 #4- Quais serviços foram agendados para um pet específico?
 SELECT p.nome_pet, s.nome_servico, a.data_agendamento
@@ -496,25 +724,22 @@ SELECT c.nome_cliente, p.nome_produto
 	FROM Cliente c
 	JOIN Venda v ON c.id_cliente = v.id_cliente
 	JOIN Produto p ON v.id_produto = p.id_produto
-	WHERE c.nome_cliente = 'Helena Ferreira';
-
+	WHERE c.nome_cliente = 'Carlos Silva';
+    
 #7- Quais clientes têm felinos cadastrados no sistema?
-SELECT c.nome_cliente, p.nome_pet, p.especie_pet, p.raca_pet
-	FROM Cliente c
-    JOIN Pet p ON c.id_cliente = p.id_cliente
-    WHERE especie_pet = 'felina';
+SELECT DISTINCT c.id_cliente, c.nome_cliente, e.nome_especie, r.raca, p.nome_pet
+FROM Cliente c
+JOIN Pet p ON c.id_cliente = p.id_cliente
+JOIN EspeciePet e ON p.id_especie = e.id_especie
+JOIN RacaPet r ON p.id_raca = r.id_raca
+WHERE e.nome_especie = 'Felis catus';
 
-#8- Quantos produtos diferentes um fornecedor específico fornece
-SELECT 
-	p.id_produto, 
-	p.nome_produto,
-	(SELECT COUNT(DISTINCT p2.id_produto)
-	FROM Produto p2
-	JOIN Fornecedor f2 ON p2.id_fornecedor = f2.id_fornecedor
-	WHERE f2.nome_fornecedor = 'Patas Limpas ModaFashion') AS num_produtos_diferentes
-	FROM Produto p
-	JOIN Fornecedor f ON p.id_fornecedor = f.id_fornecedor
-	WHERE f.nome_fornecedor = 'Patas Limpas ModaFashion';
+#8- Quais clientes fizeram compras de um produto específico?
+SELECT c.nome_cliente, p.nome_produto
+FROM Cliente c
+JOIN Venda v ON c.id_cliente = v.id_cliente
+JOIN Produto p ON v.id_produto = p.id_produto
+WHERE p.nome_produto = 'Suéter para Gatos';
     
 #9- Quais produtos um cliente comprou em um intervalo de datas?
 SELECT c.nome_cliente, p.nome_produto, v.data_venda
@@ -537,28 +762,23 @@ SELECT s.nome_servico, s.preco_servico, f.nome_funcionario
 	FROM Servico s
 	JOIN Funcionario f ON s.id_funcionario = f.id_funcionario
 	WHERE f.nome_funcionario = 'Carlos Souza';
+    
 #12- Quais pets pertencem a um cliente com um endereço específico?
-SELECT c.nome_cliente, p.nome_pet, p.especie_pet, p.raca_pet
-FROM Pet p
-JOIN Cliente c ON p.id_cliente = c.id_cliente
-WHERE c.endereco_cliente LIKE '%Rua das Flores 123%';
 
- #13- Quais clientes fizeram compras de um produto específico?
-SELECT c.nome_cliente, p.nome_produto
-FROM Cliente c
-JOIN Venda v ON c.id_cliente = v.id_cliente
-JOIN Produto p ON v.id_produto = p.id_produto
-WHERE p.nome_produto = 'Suéter para Gatos';
+#13- Quais serviços têm a maior duração?
 
-#14- Quais clientes compraram produtos de mais de um fornecedor?
-	SELECT c.nome_cliente
-	FROM Cliente c
-	JOIN Venda v ON c.id_cliente = v.id_cliente
-	JOIN Produto p ON v.id_produto = p.id_produto
-	GROUP BY c.id_cliente
-	HAVING COUNT(DISTINCT p.id_fornecedor) > 1;
+#14- Quais pets têm a expectativa de vida superior a 15 anos?
 
-#11- Quais são os detalhes de um agendamento específico (cliente, pet, serviço, data, status)?
+#15- Quantos pets são machos e quantos são fêmeas no banco de dados?
 
+#16- Quais pets são de uma raça específica?
 
+#17- Qual funcionário tem o maior número de serviços prestados?
+
+#18- Quais pets são do sexo masculino e têm mais de 2 anos de idade?
+
+#19- Quais serviços foram agendados por mais de um cliente?
+
+#20- Quais petshops venderam o produto "Ração Seca para Cães Adultos"?
+ 
 
