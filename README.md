@@ -1,4 +1,5 @@
-![image](https://github.com/user-attachments/assets/43c74023-1700-413e-8d87-a8c0c289c3f5)
+![image](https://github.com/user-attachments/assets/0393c675-8746-4578-a8b6-bf55f442cd3d)
+
 
 
 # **Pet Shop Management System - Mundo Pet**
