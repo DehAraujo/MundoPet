@@ -2,7 +2,7 @@
 
 
 
-# **Pet Shop Management System - Mundo Pet**
+# **Pet Shop - Mundo Pet**
 
 **Este é um sistema de gerenciamento de pet shop que permite o controle de clientes, pets, raças, espécies, produtos, vendas, funcionários, serviços e agendamentos.**
 
