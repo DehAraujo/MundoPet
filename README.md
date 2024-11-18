@@ -1,3 +1,6 @@
+![image](https://github.com/user-attachments/assets/43c74023-1700-413e-8d87-a8c0c289c3f5)
+
+
 # **Pet Shop Management System - Mundo Pet**
 
 **Este é um sistema de gerenciamento de pet shop que permite o controle de clientes, pets, raças, espécies, produtos, vendas, funcionários, serviços e agendamentos.**
