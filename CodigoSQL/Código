@@ -1,5 +1,5 @@
-CREATE DATABASE mundoPet;
-USE MundoPet;
+CREATE DATABASE Mundo;
+USE Mundo;
 
 CREATE TABLE Cliente(
     id_cliente INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -85,9 +85,6 @@ CREATE TABLE Agendamento (
     FOREIGN KEY (id_pet) REFERENCES Pet(id_pet),
     FOREIGN KEY (id_servico) REFERENCES Servico(id_servico)
 );
-
-
-
 
 INSERT INTO Cliente(nome_cliente, endereco_cliente, tel_cliente, data_cadastro_cliente) VALUES
 ('Carlos Silva', 'Rua A, 123, São Paulo - SP', '98765-4321', '2024-11-17'),
@@ -191,86 +188,60 @@ INSERT INTO RacaPet(id_especie, raca, tamanho, temperamento, expectativa_vida) V
 (1, 'Chihuahua', 'Pequeno', 'Ativo, carinhoso, corajoso', '12-20 anos'),
 (1, 'Dachshund', 'Pequeno', 'Corajoso, amigável, teimoso', '12-16 anos'),
 (1, 'Shih Tzu', 'Pequeno', 'Amigável, leal, afetuoso', '10-16 anos'),
-
 (2, 'Persa', 'Médio', 'Calmo, afetuoso, preguiçoso', '12-16 anos'),
 (2, 'Siamês', 'Médio', 'Sociável, vocal, inteligente', '12-20 anos'),
 (2, 'Maine Coon', 'Grande', 'Amigável, inteligente, independente', '12-15 anos'),
 (2, 'Bengal', 'Médio a Grande', 'Ativo, brincalhão, curioso', '12-16 anos'),
 (2, 'Ragdoll', 'Grande', 'Sociável, afetuoso, relaxado', '12-15 anos'),
-
-
 (3, 'Tartaruga Grega', 'Pequeno a Médio', 'Calma, solitária', '50-80 anos'),
 (3, 'Tartaruga de Hermann', 'Pequeno a Médio', 'Calma, solitária', '50-70 anos'),
 (3, 'Tartaruga de Caixa', 'Médio', 'Calma, solitária', '30-40 anos'),
-
-
 (4, 'Cágado Vermelho', 'Médio', 'Calmo, solitário', '20-40 anos'),
 (4, 'Cágado do Sul', 'Médio', 'Calmo, tímido', '25-40 anos'),
 (4, 'Cágado de Pano', 'Médio', 'Calmo, solitário', '20-40 anos'),
-
-
 (5, 'Porquinho-da-índia Americano', 'Pequeno', 'Sociável, curioso, amigável', '4-6 anos'),
 (5, 'Porquinho-da-índia Abyssinian', 'Pequeno', 'Sociável, ativo, amigável', '4-6 anos'),
 (5, 'Porquinho-da-índia Peruviano', 'Pequeno', 'Sociável, carinhoso, ativo', '4-6 anos'),
-
 (6, 'Hamster Sírio', 'Pequeno', 'Ativo, noturno, curioso', '2-3 anos'),
 (6, 'Hamster Roborovski', 'Pequeno', 'Ativo, rápido, sociável', '3-4 anos'),
 (6, 'Hamster Anão Russo', 'Pequeno', 'Ativo, sociável, curioso', '2-3 anos'),
-
 (7, 'Rato Doméstico', 'Pequeno', 'Curioso, sociável, inteligente', '2-3 anos'),
 (7, 'Rato Dumbo', 'Pequeno', 'Sociável, dócil, inteligente', '2-3 anos'),
 (7, 'Rato Standard', 'Pequeno', 'Curioso, ativo, amigável', '2-3 anos'),
 (7, 'Rato Rex', 'Pequeno', 'Afetuoso, inteligente, sociável', '2-3 anos'),
 (7, 'Rato de Pele Lisa', 'Pequeno', 'Sociável, curioso, amigável', '2-3 anos'),
-
-
 (8, 'Chinchila Padrão', 'Pequeno', 'Calmo, noturno, curioso', '10-15 anos'),
 (8, 'Chinchila de Pêlo Curto', 'Pequeno', 'Sociável, amigável, ativo', '10-15 anos'),
 (8, 'Chinchila Black Velvet', 'Pequeno', 'Sociável, tranquilo, curioso', '10-15 anos'),
 (8, 'Chinchila Tan', 'Pequeno', 'Sociável, carinhoso, ativo', '10-15 anos'),
-
-
 (9, 'Jiboia', 'Grande', 'Calma, territorial, sedentária', '20-30 anos'),
-
 (10, 'Cruzada', 'Médio', 'Agressiva, territorial', '10-20 anos'),
-
 (11, 'Cobra do Milho', 'Médio', 'Calma, curiosa', '10-15 anos'),
-
 (12, 'Cobra-do-Leite', 'Médio', 'Ativa, curiosa', '10-20 anos'),
 (13, 'Cobra-dágua', 'Médio', 'Calma, territorial', '10-15 anos'),
 (14, 'Cobra-verde', 'Grande', 'Agressiva, territorial', '10-20 anos'),
 (15, 'Jiboia-verde', 'Grande', 'Calma, territorial', '20-30 anos'),
 (16, 'Cobra do Pinho', 'Médio', 'Curiosa, ativa', '15-20 anos'),
-
-
 (17, 'Coelho Holandês', 'Pequeno', 'Sociável, ativo, amigável', '5-10 anos'),
 (17, 'Coelho Mini Rex', 'Pequeno', 'Calmo, afetuoso, curioso', '5-8 anos'),
 (17, 'Coelho Angorá', 'Médio', 'Gentil, tranquilo, sociável', '5-12 anos'),
 (17, 'Coelho Lop', 'Médio', 'Sociável, brincalhão, amigável', '5-7 anos'),
 (17, 'Coelho Lionhead', 'Pequeno', 'Sociável, energético, curioso', '5-8 anos'),
 (17, 'Coelho Flemish Giant', 'Grande', 'Calmo, amigável, gentil', '5-10 anos'),
-
-
 (18, 'Lebre Europeia', 'Médio', 'Curiosa, ativa, solitária', '5-10 anos'),
 (18, 'Lebre do Deserto', 'Médio', 'Rápida, esquiva, ativa', '5-8 anos'),
 (18, 'Lebre de Cauda Branca', 'Médio', 'Curiosa, ativa, solitária', '6-10 anos'),
 (18, 'Lebre Americana', 'Médio', 'Ágil, independente, ativa', '5-7 anos'),
-
-
 (19, 'Galinha Rhode Island Red', 'Médio', 'Calma, sociável, produtiva', '5-8 anos'),
 (19, 'Galinha Plymouth Rock', 'Médio', 'Sociável, amigável, resistente', '5-10 anos'),
 (19, 'Galinha Sussex', 'Médio', 'Amigável, ativa, sociável', '5-8 anos'),
 (19, 'Galinha Australorp', 'Médio', 'Trabalhadora, leal, sociável', '6-10 anos'),
 (19, 'Galinha Leghorn', 'Médio', 'Ativa, resistente, sociável', '5-10 anos'),
-
-
-
 (20, 'Periquito Australiano', 'Pequeno', 'Sociável, ativo, inteligente', '5-10 anos'),
 (20, 'Periquito Albino', 'Pequeno', 'Curioso, ativo, amigável', '5-8 anos'),
 (20, 'Periquito Verde', 'Pequeno', 'Sociável, alegre, comunicativo', '5-10 anos'),
 (20, 'Periquito Lutino', 'Pequeno', 'Brincalhão, amigável, curioso', '5-8 anos'),
 (20, 'Periquito Cobalto', 'Pequeno', 'Sociável, ativo, alegre', '5-10 anos'),
-
 (21, 'Peixe Betta Veiltail', 'Pequeno', 'Agressivo, territorial', '2-4 anos'),
 (21, 'Peixe Betta Halfmoon', 'Pequeno', 'Agressivo, territorial', '2-4 anos'),
 (21, 'Peixe Betta Crowntail', 'Pequeno', 'Agressivo, territorial', '2-4 anos'),
@@ -279,8 +250,6 @@ INSERT INTO RacaPet(id_especie, raca, tamanho, temperamento, expectativa_vida) V
 (21, 'Peixe Betta Doubletail', 'Pequeno', 'Agressivo, territorial', '2-4 anos'),
 (21, 'Peixe Betta Rose', 'Pequeno', 'Agressivo, territorial', '2-4 anos'),
 (21, 'Peixe Betta Koi', 'Pequeno', 'Agressivo, territorial', '2-4 anos'),
-
-
 (22, 'Peixe Dourado Comum', 'Médio', 'Sociável, pacífico', '5-10 anos'),
 (22, 'Peixe Dourado Fantail', 'Médio', 'Sociável, tranquilo', '5-10 anos'),
 (22, 'Peixe Dourado Ranchu', 'Médio', 'Tranquilo, amigável', '5-10 anos'),
@@ -289,9 +258,6 @@ INSERT INTO RacaPet(id_especie, raca, tamanho, temperamento, expectativa_vida) V
 (22, 'Peixe Dourado Shubunkin', 'Médio', 'Sociável, ativo', '5-10 anos'),
 (22, 'Peixe Dourado Black Moor', 'Médio', 'Tranquilo, sociável', '5-10 anos'),
 (22, 'Peixe Dourado Pearlscale', 'Médio', 'Sociável, calmo', '5-10 anos'),
-
-
-
 (23, 'Molly Preto', 'Pequeno', 'Sociável, pacífico', '3-5 anos'),
 (23, 'Molly Lyretail', 'Pequeno', 'Sociável, calmo', '3-5 anos'),
 (23, 'Molly Balloon', 'Pequeno', 'Amigável, pacífico', '3-5 anos'),
@@ -302,8 +268,6 @@ INSERT INTO RacaPet(id_especie, raca, tamanho, temperamento, expectativa_vida) V
 (23, 'Molly Esmeralda', 'Pequeno', 'Sociável, amigável', '3-5 anos'),
 (23, 'Molly Espectral', 'Pequeno', 'Sociável, tranquilo', '3-5 anos'),
 (23, 'Molly Pearl', 'Pequeno', 'Curiosa, amigável', '3-5 anos'),
-
-
 (24, 'Peixinho Zebra Azul', 'Pequeno', 'Ativo, sociável', '3-5 anos'),
 (24, 'Peixinho Zebra Gold', 'Pequeno', 'Sociável, amigável', '3-5 anos'),
 (24, 'Peixinho Zebra Verde', 'Pequeno', 'Sociável, ativo', '3-5 anos'),
@@ -314,8 +278,6 @@ INSERT INTO RacaPet(id_especie, raca, tamanho, temperamento, expectativa_vida) V
 (24, 'Peixinho Zebra Black', 'Pequeno', 'Ativo, sociável', '3-5 anos'),
 (24, 'Peixinho Zebra Longfin', 'Pequeno', 'Sociável, ativo', '3-5 anos'),
 (24, 'Peixinho Zebra Leopard', 'Pequeno', 'Sociável, curioso', '3-5 anos'),
-
-
 (25, 'Disco Padrão', 'Médio', 'Sociável, tranquilo', '5-10 anos'),
 (25, 'Disco Cobre', 'Médio', 'Calmo, sociável', '5-10 anos'),
 (25, 'Disco Azul', 'Médio', 'Sociável, ativo', '5-10 anos'),
@@ -326,7 +288,6 @@ INSERT INTO RacaPet(id_especie, raca, tamanho, temperamento, expectativa_vida) V
 (25, 'Disco Diamond', 'Médio', 'Calmo, sociável', '5-10 anos'),
 (25, 'Disco Golden', 'Médio', 'Sociável, tranquilo', '5-10 anos'),
 (25, 'Disco Turquesa', 'Médio', 'Sociável, pacífico', '5-10 anos'),
-
 (26, 'Agama do Deserto', 'Médio', 'Sociável, ativo', '8-12 anos'),
 (26, 'Agama Barbado', 'Médio', 'Sociável, ativo', '8-12 anos'),
 (26, 'Agama do Saara', 'Médio', 'Curioso, ativo', '8-12 anos'),
@@ -337,8 +298,6 @@ INSERT INTO RacaPet(id_especie, raca, tamanho, temperamento, expectativa_vida) V
 (26, 'Agama do Mali', 'Médio', 'Sociável, ativo', '8-12 anos'),
 (26, 'Agama de Cauda Longa', 'Médio', 'Curioso, ativo', '8-12 anos'),
 (26, 'Agama Vermelha', 'Médio', 'Curioso, sociável', '8-12 anos'),
-
-
 (27, 'Iguana-verde Padrão', 'Grande', 'Calma, territorial', '15-20 anos'),
 (27, 'Iguana-verde Albina', 'Grande', 'Calma, territorial', '15-20 anos'),
 (27, 'Iguana-verde Vermelha', 'Grande', 'Sociável, territorial', '15-20 anos'),
@@ -674,8 +633,8 @@ INSERT INTO Servico(id_funcionario, nome_servico, preco_servico, duracao_servico
 
 INSERT INTO Agendamento(id_cliente, id_pet, id_servico, data_agendamento, status_agendamento) VALUES
 (1, 1, 1, '2024-10-11', 'concluido'),
-(1, 2, 1, '2024-10-11', 'concluido'),
-(2, 3, 2, '2024-10-12', 'concluido'),
+(39, 2, 1, '2024-10-11', 'concluido'),
+(6, 3, 2, '2024-10-11', 'concluido'),
 (3, 4, 2, '2024-10-13', 'pendente'),
 (4, 5, 5, '2024-10-14', 'em andamento'),
 (5, 6, 7, '2024-10-15', 'concluido'),
@@ -695,21 +654,20 @@ INSERT INTO Agendamento(id_cliente, id_pet, id_servico, data_agendamento, status
 
 
 
-SELECT * from EspeciePet;
-SELECT * from RacaPet;
-select * from Produto;
-select * from Cliente;
-select * from Servico;
-select * from Funcionario;
-select * from Pet;
-select * from Venda;
-select * from Agendamento;
+SELECT * FROM EspeciePet;
+SELECT * FROM RacaPet;
+SELECT * FROM Produto;
+SELECT * FROM Cliente;
+SELECT * FROM Servico;
+SELECT * FROM Funcionario;
+SELECT * FROM Pet;
+SELECT * FROM Venda;
+SELECT * FROM Agendamento;
 
 #1- Quais clientes têm pets cadastrados no sistema?
-SELECT c.id_cliente, c.nome_cliente, p.nome_pet 
-	FROM Cliente c
-    JOIN Pet p ON c.id_cliente = p.id_pet;
-  #Inserir clientes sem pet
+SELECT c.id_cliente, c.nome_cliente, p.nome_pet, p.idade_pet, p.sexo_pet
+FROM Cliente c
+JOIN Pet p ON c.id_cliente = p.id_cliente;
 
 #2- Quais são os nomes dos pets de um cliente específico?
 SELECT *
@@ -725,7 +683,6 @@ GROUP BY c.id_cliente, c.nome_cliente
 ORDER BY numero_de_pets DESC
 LIMIT 1;
 
-
 #4- Quais serviços foram agendados para um pet específico?
 SELECT p.nome_pet, s.nome_servico, a.data_agendamento
 	FROM Agendamento a 
@@ -737,7 +694,7 @@ SELECT p.nome_pet, s.nome_servico, a.data_agendamento
 SELECT c.nome_cliente, c.endereco_cliente, c.tel_cliente
 	FROM Agendamento a
 	JOIN Cliente c ON a.id_cliente = c.id_cliente
-	WHERE a.data_agendamento = '2024-10-16';
+	WHERE a.data_agendamento = '2024-10-11';
     
 # 6- Quais produtos foram comprados por um cliente específico?
 SELECT c.nome_cliente, p.nome_produto
@@ -755,7 +712,7 @@ JOIN RacaPet r ON p.id_raca = r.id_raca
 WHERE e.nome_especie = 'Felis catus';
 
 #8- Quais clientes fizeram compras de um produto específico?
-SELECT c.nome_cliente, p.nome_produto
+SELECT c.id_cliente, c.nome_cliente, p.nome_produto
 FROM Cliente c
 JOIN Venda v ON c.id_cliente = v.id_cliente
 JOIN Produto p ON v.id_produto = p.id_produto
@@ -784,23 +741,59 @@ SELECT s.nome_servico, s.preco_servico, f.nome_funcionario
 	WHERE f.nome_funcionario = 'Carlos Souza';
     
 #12- Quais pets pertencem a um cliente com um endereço específico?
-
+SELECT c.id_cliente, c.nome_cliente, p.id_pet, p.nome_pet, p.idade_pet, p.sexo_pet
+	FROM Pet p
+	INNER JOIN Cliente c ON p.id_cliente = c.id_cliente
+	WHERE c.endereco_cliente LIKE '%República, 1010%';
+    
 #13- Quais serviços têm a maior duração?
+SELECT id_servico, nome_servico, preco_servico, duracao_servico
+	FROM Servico
+	WHERE duracao_servico = (SELECT MAX(duracao_servico) FROM Servico);
 
-#14- Quais pets têm a expectativa de vida superior a 15 anos?
+#14- Quais serviços foram realizados em pets do cliente de telefone "91234-5678" e que mora em um endereço específico?
+SELECT s.id_servico, s.nome_servico, p.nome_pet, c.id_cliente, c.nome_cliente, c.tel_cliente
+	FROM Agendamento a
+	INNER JOIN Pet p ON a.id_pet = p.id_pet
+	INNER JOIN Cliente c ON a.id_cliente = c.id_cliente
+	INNER JOIN Servico s ON a.id_servico = s.id_servico
+	WHERE c.tel_cliente = '98123-4321'
+	AND c.endereco_cliente LIKE '%Rua E%';
 
 #15- Quantos pets são machos e quantos são fêmeas no banco de dados?
+SELECT sexo_pet, COUNT(*) AS quantidade
+	FROM Pet
+	GROUP BY sexo_pet;
 
-#16- Quais pets são de uma raça específica?
+#16- Quais pets são de uma raça "Yorkshire Terrier"?
+	SELECT p.id_pet, r.raca, p.nome_pet, p.idade_pet, p.sexo_pet
+	FROM Pet p
+	INNER JOIN RacaPet r ON p.id_raca = r.id_raca
+	WHERE r.raca = 'Yorkshire Terrier';
 
-#17- Qual funcionário tem o maior número de serviços prestados?
+#17- Qual o pet fêmea tem maior idade?
+	SELECT id_pet, nome_pet, idade_pet, sexo_pet
+	FROM Pet
+	WHERE sexo_pet = 'Fêmea'
+	AND idade_pet = (SELECT MAX(idade_pet) FROM Pet WHERE sexo_pet = 'Fêmea');
 
-#18- Quais pets são do sexo masculino e têm mais de 2 anos de idade?
+#18- Quais pets são macho e têm mais de 2 anos de idade?
+SELECT id_pet, nome_pet, idade_pet, sexo_pet
+	FROM Pet
+	WHERE sexo_pet = 'Macho' 
+	AND idade_pet > 2;
 
 #19- Quais serviços foram agendados por mais de um cliente?
+SELECT s.id_servico, s.nome_servico, COUNT(DISTINCT a.id_cliente) AS num_clientes
+	FROM Servico s
+	INNER JOIN Agendamento a ON s.id_servico = a.id_servico
+	GROUP BY s.id_servico, s.nome_servico
+	HAVING COUNT(DISTINCT a.id_cliente) > 1;
 
-#20- Quais petshops venderam o produto "Ração Seca para Cães Adultos"?
- 
- #21- Quais clientes não tem Pets cadastrados?
- 
+#20- Quais clientes não tem Pets cadastrados?
+	SELECT c.id_cliente, c.nome_cliente
+	FROM Cliente c
+	LEFT JOIN Pet p ON c.id_cliente = p.id_cliente
+	WHERE p.id_pet IS NULL;
+
 
